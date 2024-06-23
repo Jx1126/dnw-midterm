@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="nord">
+<html lang="en" data-theme="nord" class="scroll-smooth">
 
   <head>
     <meta charset="UTF-8" />
@@ -8,42 +8,61 @@
     <title>Homepage</title>
   </head>
 
-  <body>
+  <body class="scroll-smooth bg-slate-200">
+    <header class="navbar bg-slate-300 text-slate-500 font-bold p-4 justify-center">
+      <aside>
+        <p class="text-center text-xl">BLOG-GRAM</p>
+      </aside>
+    </header>
 
-    <h1 class="font-bold text-slate-500 text-center">WELCOME TO THE WORLD MOST POPULAR BLOGGING PAGE!</h1>
+    <section>
+      <div class="flex flex-col justify-center items-center">
+        <h1>DISCOVER YOUR BLOGGING JOURNEY!</h1>
+        <h1 class="font-medium text-xl mt-5">Explore endless possibilities in writing and reading.<br>Start your blogging adventure today!</p>
+        <a href="#role-picker" class="btn btn-primary ml-auto mr-auto mt-10 btn-wide text-lg h-16">PICK YOUR ROLE!</a>
+      </div>
+    </section>
 
-    <div class="flex m-10 justify-center">
+    <section>
+      <h1 class="mb-10">Pick Your Role!</h1>
+      <div class="flex justify-center">
+        <div id="role-picker" class="bg-slate-300 rounded-lg shadow-md shadow-slate-400 max-w-6xl">
+          <div class="flex m-10 gap-8 flex-col md:flex-row">
 
-      <div class="bg-slate-300 rounded-lg shadow-md shadow-slate-400 max-w-6xl">
-        <div class="flex m-10 gap-8 flex-col md:flex-row">
-
-          <div class="card w-full shadow-xl bg-slate-100">
-            <figure class="h-60 overflow-hidden">
-              <img src="/images/homepage_card_1.png" alt="Author" />
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title text-slate-700">I'm an Author!</h2>
-              <p class="text-slate-600">Share your thoughts, stories, and expertise with the world. Join our community of writers and start your blogging journey today. Create, edit, and manage your posts effortlessly.</p>
-              <div class="card-actions mt-3">
-                <button class="btn btn-primary w-full">START WRITTING!</button>
+            <div class="card w-full shadow-xl bg-slate-100">
+              <figure class="h-60 overflow-hidden">
+                <img src="/images/homepage_card_1.png" alt="Author" />
+              </figure>
+              <div class="card-body">
+                <h2 class="card-title text-slate-700">I'm an Author!</h2>
+                <p class="text-slate-600">Share your thoughts, stories, and expertise with the world. Join our community of writers and start your blogging journey today. Create, edit, and manage your posts effortlessly.</p>
+                <div class="card-actions mt-3">
+                  <a class="btn btn-primary w-full">START WRITTING!</a>
+                </div>
               </div>
             </div>
-          </div>
-      
-          <div class="card w-full shadow-xl bg-slate-100">
-            <figure class="h-60 overflow-hidden">
-              <img src="/images/homepage_card_2.png" alt="Reader" />
-            </figure>
-            <div class="card-body">
-              <h2 class="card-title text-slate-700">I'm a Reader!</h2>
-              <p class="text-slate-600">Dive into a world of diverse content. Discover new topics, and stay updated with the latest posts. Enjoy an ad-free reading experience.</p>
-              <div class="card-actions">
-                <button class="btn btn-primary w-full tracking-wide shadow-sm shadow-slate-400 transition-all hover:tracking-widest ease-in-out duration-300">START READING!</button>
+        
+            <div class="card w-full shadow-xl bg-slate-100">
+              <figure class="h-60 overflow-hidden">
+                <img src="/images/homepage_card_2.png" alt="Reader" />
+              </figure>
+              <div class="card-body">
+                <h2 class="card-title text-slate-700">I'm a Reader!</h2>
+                <p class="text-slate-600">Dive into a world of diverse content. Discover new topics, and stay updated with the latest posts. Enjoy an ad-free reading experience.</p>
+                <div class="card-actions">
+                  <a class="btn btn-primary w-full tracking-wide shadow-sm shadow-slate-400 transition-all hover:tracking-widest ease-in-out duration-300">START READING!</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <footer class="footer footer-center font-bold text-slate-500 bg-slate-300 p-4">
+      <aside>
+        <p>Copyright © 2024 - All right reserved by Wong Jin Xuan</p>
+      </aside>
+    </footer>
   </body>
 </html>
