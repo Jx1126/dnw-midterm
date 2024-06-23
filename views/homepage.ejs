@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="cupcake">
+<html lang="en" data-theme="nord">
 
   <head>
     <meta charset="UTF-8" />
@@ -10,13 +10,40 @@
 
   <body>
 
-    <h1 class="text-4xl text-center mt-8">Homepage</h1>
-    
-    <div class="flex justify-center">
-      <div class="bg-black w-5 h-10"></div>
-      <div class="bg-black w-10 h-5"></div>
-      <div class="bg-black w-10 h-5"></div>
-    </div>
+    <h1 class="font-bold text-slate-500 text-center">WELCOME TO THE WORLD MOST POPULAR BLOGGING PAGE!</h1>
 
+    <div class="flex m-10 justify-center">
+
+      <div class="bg-slate-300 rounded-lg shadow-md shadow-slate-400 max-w-6xl">
+        <div class="flex m-10 gap-8 flex-col md:flex-row">
+
+          <div class="card w-full shadow-xl bg-slate-100">
+            <figure class="h-60 overflow-hidden">
+              <img src="/images/homepage_card_1.png" alt="Author" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title text-slate-700">I'm an Author!</h2>
+              <p class="text-slate-600">Share your thoughts, stories, and expertise with the world. Join our community of writers and start your blogging journey today. Create, edit, and manage your posts effortlessly.</p>
+              <div class="card-actions mt-3">
+                <button class="btn btn-primary w-full">START WRITTING!</button>
+              </div>
+            </div>
+          </div>
+      
+          <div class="card w-full shadow-xl bg-slate-100">
+            <figure class="h-60 overflow-hidden">
+              <img src="/images/homepage_card_2.png" alt="Reader" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title text-slate-700">I'm a Reader!</h2>
+              <p class="text-slate-600">Dive into a world of diverse content. Discover new topics, and stay updated with the latest posts. Enjoy an ad-free reading experience.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary w-full tracking-wide shadow-sm shadow-slate-400 transition-all hover:tracking-widest ease-in-out duration-300">START READING!</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
