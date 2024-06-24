@@ -27,15 +27,15 @@ global.db = new sqlite3.Database('./database.db',function(err){
 
 // Handle requests to the home page 
 app.get('/', (req, res) => {
-    res.render('homepage.ejs');
+    res.render('homepage');
 });
 
 app.get('/author_home', (req, res) => {
-    res.render('author_home.ejs');
+    res.render('author_home');
 });
 
 app.get('/reader_home', (req, res) => {
-    res.render('reader_home.ejs');
+    res.render('reader_home');
 });
 
 // Add all the route handlers in usersRoutes to the app under the path /users
