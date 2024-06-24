@@ -30,6 +30,14 @@ app.get('/', (req, res) => {
     res.render('homepage.ejs');
 });
 
+app.get('/author_home', (req, res) => {
+    res.render('author_home.ejs');
+});
+
+app.get('/reader_home', (req, res) => {
+    res.render('reader_home.ejs');
+});
+
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);

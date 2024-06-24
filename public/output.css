@@ -1342,6 +1342,14 @@ html {
   width: 100%;
 }
 
+.w-80 {
+  width: 20rem;
+}
+
+.w-60 {
+  width: 15rem;
+}
+
 .max-w-6xl {
   max-width: 72rem;
 }
