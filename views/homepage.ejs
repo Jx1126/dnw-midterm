@@ -9,51 +9,70 @@
   </head>
 
   <body class="scroll-smooth bg-slate-200">
+  <!-- Header Navbar -->
     <header class="navbar bg-slate-300 text-slate-500 font-bold p-4">
       <div class="navbar-start">
       </div>
       <div class="navbar-center">
+        <!-- Website name at the center of the navbar -->
         <a class="btn btn-outline text-3xl font-bold border-none hover:bg-inherit hover:tracking-wide hover:text-slate-500">BLOG-IT</a>
       </div>
       <div class="navbar-end">
       </div>
     </header>
   
-
+    <!-- Hero section -->
     <section>
+      <!-- Container to store title and details to center them -->
       <div class="flex flex-col justify-center items-center">
         <h1>DISCOVER YOUR BLOGGING JOURNEY!</h1>
         <h1 class="font-medium text-xl mt-5">Explore endless possibilities in writing and reading.<br>Start your blogging adventure today!</p>
+        <!-- Button that scroll users to the role picker section -->
         <a href="#role-picker" class="btn btn-primary ml-auto mr-auto mt-10 btn-wide text-lg h-16">PICK YOUR ROLE!</a>
       </div>
     </section>
 
+    <!-- Role picker section -->
     <section>
       <h1 class="mb-10">Pick Your Role!</h1>
+      <!-- Container to store the role picker section -->
       <div class="flex justify-center">
+        <!-- Background container to store the role cards -->
         <div id="role-picker" class="bg-slate-300 rounded-lg shadow-md shadow-slate-400 max-w-6xl">
+          <!-- Flex box to make the card responsive to different screen sizes -->
           <div class="flex m-10 gap-8 flex-col md:flex-row">
-
+            <!-- Author card -->
             <div class="card w-full shadow-xl bg-slate-100">
+              <!-- Image in the card -->
               <figure class="h-60 overflow-hidden">
                 <img src="/images/homepage_card_1.png" alt="Author" />
               </figure>
+              <!-- Body section of the card -->
               <div class="card-body">
+                <!-- Card title -->
                 <h2 class="card-title text-slate-700">I'm an Author!</h2>
+                <!-- Card description -->
                 <p class="text-slate-600">Share your thoughts, stories, and expertise with the world. Join our community of writers and start your blogging journey today. Create, edit, and manage your posts effortlessly.</p>
-                  <form class="card-actions mt-3" action="/author_home" method="GET">
-                    <button type="submit" class="btn btn-primary w-full">START WRITING!</button>
-                  </form>
+                <!-- Links to author homepage -->
+                <form class="card-actions mt-3" action="/author_home" method="GET">
+                  <button type="submit" class="btn btn-primary w-full">START WRITING!</button>
+                </form>
               </div>
             </div>
         
+            <!-- Reader card -->
             <div class="card w-full shadow-xl bg-slate-100">
+              <!-- Image in the card -->
               <figure class="h-60 overflow-hidden">
                 <img src="/images/homepage_card_2.png" alt="Reader" />
               </figure>
+              <!-- Body section of the card -->
               <div class="card-body">
+                <!-- Card title -->
                 <h2 class="card-title text-slate-700">I'm a Reader!</h2>
+                <!-- Card description -->
                 <p class="text-slate-600">Dive into a world of diverse content. Discover new topics, and stay updated with the latest posts. Enjoy an ad-free reading experience.</p>
+                <!-- Links to reader homepage -->
                 <form class="card-actions mt-3" action="/reader_home" method="GET">
                   <button type="submit" class="btn btn-primary w-full">START READING!</button>
                 </form>
@@ -64,6 +83,7 @@
       </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer footer-center font-bold text-slate-500 bg-slate-300 p-4">
       <aside>
         <p>Copyright © 2024 - All right reserved by Wong Jin Xuan</p>
