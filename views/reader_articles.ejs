@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/output.css" />
+  <title>BLOG-IT: Author Settings</title>
+</head>
+<body>
+  <!-- Header Navbar -->
+  <header class="navbar bg-slate-300 text-slate-500 font-bold p-4">
+    <div class="navbar-start">
+      <!-- Home button to lead users back to the localhost mainpage -->
+      <form action="/" method="POST">
+        <button type="submit" class="btn btn-square btn-outline border-none text-primary-color hover:bg-slate-400 hover:text-slate-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>                   
+        </button>
+      </form>
+    </div>
+    <div class="navbar-center">
+      <!-- Website name at the center of the navbar -->
+      <a  style="font-weight: bolder !important;" class="btn btn-outline text-3xl font-bold border-none hover:bg-inherit text-slate-600 hover:tracking-wide hover:text-slate-500">BLOG-IT</a>
+    </div>
+    <div class="navbar-end">
+    </div>
+  </header>
+
+  <!-- Links to reader homepage -->
+  <div class="flex ml-10 mt-5 ">
+    <form action="/reader_home" method="GET">
+      <button href="#" class="btn btn-secondary w-40">
+        <!-- Return icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+          <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+        </svg>
+        Return
+      </button>
+    </form>
+  </div>
+
+  <!-- Hero section -->
+  <section class="mb-0 flex flex-col items-center">
+    <h1>Article Reader</h1>
+    <div class="flex flex-col gap-3 mt-10 sm:flex-row justify-center">
+      <!-- Links to article -->
+      <a href="#article" class="btn btn-primary text-slate-200 text-lg h-16 w-72">Jump to Article</a>
+    </div>
+    <!-- Links to article description and comments -->
+    <div class="flex flex-col gap-3 mt-3 sm:flex-row justify-center">
+      <a href="#comments" class="btn btn-secondary text-slate-200 text-lg h-16 w-72">Jump to Comments</a>
+      <a href="#article_details" class="btn btn-secondary text-slate-200 text-lg h-16 w-72">Jump to Article Details</a>
+    </div>
+  </section>
+
+  <!-- Container to store the article and article details -->
+  <div class="flex flex-col sm:flex-row justify-center">
+    <!-- Article section -->
+    <section id="article" class="mx-5 mb-0 max-w-7xl">
+      <!-- Container for the article -->
+      <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg">
+        <!-- Container for the article title and content -->
+        <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
+          <!-- Article title -->
+          <h1 class="text-3xl text-start">Article Title</h1>
+          <!-- Article content -->
+          <p class="text-xl pt-4 font-semibold text-slate-500">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus cumque ratione blanditiis, molestias nisi quisquam corrupti. Blanditiis numquam illo excepturi corporis aperiam? Accusamus harum, rem aspernatur molestiae illum officiis id!
+            <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur aut laborum? Dolorem magnam ullam soluta hic necessitatibus iste inventore doloremque blanditiis, provident quas similique vero? Ad veniam non dicta.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique illo exercitationem molestias ipsa magnam dicta blanditiis. Quae autem consectetur tempore eveniet quam beatae placeat. Quam perferendis voluptatum nisi ut voluptate?
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias obcaecati libero quia, numquam eum voluptatem atque? Recusandae mollitia in, esse magnam quae sequi illum incidunt beatae officia consequatur suscipit pariatur.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. A error rem numquam nemo minima magni veniam doloremque asperiores quae? Maiores, obcaecati voluptatum inventore qui iste earum saepe nemo aliquam dolores?
+            <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam cum consequuntur reiciendis qui nihil dolor iste! Nostrum, incidunt asperiores ea at, odit similique rerum delectus voluptas voluptates eos pariatur repellat.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur eligendi, quis deserunt quibusdam possimus esse reprehenderit accusamus velit consequatur. Et maxime reiciendis sed dolor perferendis ducimus dicta est beatae harum.
+          </p>
+          <!-- Like button -->
+          <a onclick="updateLikeButton()" id="like_button" article_liked="false" class="btn btn-outline btn-wide border-red-400 text-red-700 border-2 mt-5 hover:bg-red-300 hover:text-red-900 hover:border-red-300 hover:shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+            </svg>
+            Like this article            
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article detail section -->
+    <section id="article_details" class="mx-5 mt-0 mb-3 sm:mr-5 sm:mt-16 sm:mb-16">
+      <!-- Container for the article details -->
+      <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg">
+        <!-- Container for the article details title and content -->
+        <div class="flex flex-col p-5 pl-7 min-w-60 bg-slate-200 rounded-lg shadow-lg">
+          <h1 class="text-3xl text-start">Article Details</h1>
+          <!-- Author section -->
+          <p class="mt-2 font-medium text-xl text-slate-400">Author</p>
+          <!-- Container to store the author icon and name in a row -->
+          <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
+            <!-- Author icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+            </svg>            
+            <!-- Author name   -->
+            <p>
+              Yii Long Ma
+            </p>
+          </div>
+          <!-- Publication date section -->
+          <p class="mt-2 font-medium text-xl text-slate-400">Publication Date</p>
+          <!-- Container to store the calender icon and publication date in a row -->
+          <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
+            <!-- Calender icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+              <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
+            </svg>                       
+            <!-- Publication date -->
+            <p>
+              26 November 2023
+            </p>
+          </div>
+          <!-- Views section -->
+          <p class="mt-2 font-semibold text-xl text-slate-400">Views</p>
+          <!-- Container to store the view icon and the views amount in a row -->
+          <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
+            <!-- View icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            </svg>     
+            <!-- Views amount -->
+            <p>
+              10,000,000         
+            </p>
+          </div>
+          <!-- Likes section -->
+          <p class="mt-2 font-semibold text-xl text-slate-400">Likes</p>
+          <!-- Container to store the like icon and the likes amount in a row -->
+          <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
+            <!-- Like icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+            </svg>  
+            <!-- Likes amount -->
+            <p>
+              5,000,000
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Comment section -->
+  <section id="comments" class="flex justify-center mt-0 sm:mt-5">
+    <!-- Container for the whole comment section -->
+    <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg max-w-7xl">
+      <!-- Container for the comment section title -->
+      <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
+        <h1 class="text-2xl text-start">
+          Comments
+        </h1>
+        <!-- Dropdown for sorting the comments -->
+        <details id="dropdown" class="dropdown">
+          <summary id="sort_button" class="btn btn-outline bg-transparent mt-5 ml-0 hover:bg-transparent hover:tracking-wide hover:text-slate-500 hover:border-slate-500">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+            </svg>
+            Sort: Publication Date      
+          </summary>
+          <!-- Dropdown content for sorting the comments -->
+          <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li><a href="#" onclick="updateSortingText('Most Liked')">Most Liked</a></li>
+            <li><a href="#" onclick="updateSortingText('Most Viewed')">Most Viewed</a></li>
+            <li><a href="#" onclick="updateSortingText('Last Added')">Last Added</a></li>
+          </ul>
+        </details>
+      </div>
+      <!-- Container for the each comment -->
+      <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
+        <!-- Author section -->
+        <div class="flex items-center text-slate-500 font-medium text-lg gap-2 border-b-2 border-slate-300">
+          <!-- Author icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>            
+          <!-- Author name   -->
+          <p>
+            Yii Long Ma
+          </p>
+        </div>
+        <!-- Comment -->
+        <p class="text-xl pt-4 font-semibold text-slate-500">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum animi labore, libero dolor quaerat fugit, enim numquam error nulla perspiciatis unde at rem consequuntur! Vel quisquam cupiditate omnis ut velit.
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae alias tempora nostrum dolores, aperiam, explicabo reprehenderit molestias cumque ullam dolor officiis enim dolore voluptate pariatur repellendus doloremque dolorem, exercitationem praesentium.
+          <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, officiis quas a necessitatibus nostrum illo beatae eum eveniet, nulla quasi molestias inventore assumenda temporibus asperiores maiores dignissimos aliquam, amet vero.
+        </p>
+      </div>
+
+      <!-- New comment input -->
+      <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
+        <!-- Input for commenter name -->
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text text-slate-500 font-semibold text-md">Commenter's name</span>
+          </div>
+          <input type="text" placeholder="Name" class="input input-bordered w-full max-w-xs " />
+        </label>
+        <!-- Input for the comment -->
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text text-slate-500 font-semibold text-md">Comment</span>
+          </div>
+          <textarea class="textarea textarea-bordered h-24 resize" placeholder="Enter your message.."></textarea>
+        </label>
+        <!-- Submit comment button -->
+        <button type="submit" class="btn btn-primary btn-wide mt-3">Submit</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer footer-center font-bold text-slate-500 bg-slate-300 p-4 mt-16">
+    <aside>
+      <p>Copyright © 2024 - All right reserved by Wong Jin Xuan</p>
+    </aside>
+  </footer>
+
+  <script>
+    // Function to update the like button
+    function updateLikeButton() {
+      // Get the like button element
+      const like_button = document.getElementById('like_button');
+      // Liked and neutral state of the like button
+      const liked = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"><path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" /></svg>You've liked this article`;
+      const neutral = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>Like this article`;
+
+      // Update the like button based on the current state
+      // If the article is liked, change the button to neutral state
+      if (like_button.getAttribute('article_liked') === 'true') {
+        like_button.setAttribute('article_liked', 'false');
+        // Remove the liked state css and add the neutral state css
+        like_button.classList.remove('bg-red-300', 'text-red-900', 'border-red-300', 'hover:shadow');
+        like_button.classList.add('btn-outline', 'text-red-700', 'border-2');
+        // Set the button design to neutral state
+        like_button.innerHTML = neutral;
+      } else {
+        // If the article is not liked, change the button to liked state
+        like_button.setAttribute('article_liked', 'true');
+        // Remove the neutral state css and add the liked state css
+        like_button.classList.add('bg-red-300', 'text-red-900', 'border-red-300', 'hover:shadow');
+        like_button.classList.remove('btn-outline', 'text-red-700', 'border-2');
+        // Set the button design to liked state
+        like_button.innerHTML = liked;
+      }
+    }
+
+    // Function to update the sorting text shown on the dropdown button
+    function updateSortingText(selection) {
+      // Get the sort button element
+      const sort_button = document.getElementById('sort_button');
+      // Update the sorting text based on the selection
+      sort_button.innerHTML= `
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+        </svg>
+        Sort: ${selection}
+      `;
+
+      // Close the dropdown after selection
+      const dropdown = document.getElementById('dropdown');
+      dropdown.removeAttribute('open');
+    }
+  </script>
+</body>
+</html>
