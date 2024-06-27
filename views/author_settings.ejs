@@ -27,9 +27,47 @@
     </div>
   </header>
 
+  <!-- Links to author homepage -->
+  <div class="flex ml-10 mt-5 ">
+    <form action="/author_home" method="GET">
+      <button href="#" class="btn btn-secondary w-40">
+        <!-- Return icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+          <path fill-rule="evenodd" d="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
+        </svg>
+        Return
+      </button>
+    </form>
+  </div>
+
+  <!-- Hero section -->
   <section>
     <h1>Author Settings</h1>
   </section>
+
+  <!-- Author Settings Form -->
+  <section class="flex justify-center align-center">
+    <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg max-w-7xl">
+      <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text text-slate-500 font-semibold">Author name?</span>
+          </div>
+          <input type="text" placeholder="Name" class="input input-bordered w-full max-w-xs" />
+        </label>
+
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text text-slate-500 font-semibold">Blog title?</span>
+          </div>
+          <input type="text" placeholder="Title" class="input input-bordered w-full max-w-xs" />
+        </label>
+        <form action="/author_home" method="POST"></form>
+        <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+      </div>
+    </div>
+  </section>
+
   
   <!-- Footer -->
   <footer class="footer footer-center font-bold text-slate-500 bg-slate-300 p-4">
