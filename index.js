@@ -30,37 +30,15 @@ app.get('/', (req, res) => {
     res.render('homepage');
 });
 
-app.get('/author_home', (req, res) => {
-    res.render('author_home');
-});
-
-// app.get('/author_settings', (req, res) => {
-//     res.render('author_settings');
-// });
-
-app.get('/author_edit', (req, res) => {
-    res.render('author_edit');
-});
-
-app.get('/reader_home', (req, res) => {
-    res.render('reader_home');
-});
-
-app.get('/reader_articles', (req, res) => {
-    res.render('reader_articles');
-});
-
-app.post('/', (req, res) => {
-    res.render('homepage');
-});
-
-
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
 
-const authorSettingsRoutes = require('./routes/author_settings');
-app.use('/author', authorSettingsRoutes);
+const authorRoutes = require('./routes/author_routes');
+app.use('/author', authorRoutes);
+
+const readerRoutes = require('./routes/reader_routes')
+app.use('/reader', readerRoutes)
 
 
 // Make the web application listen for HTTP requests

@@ -20,6 +20,10 @@ router.get('/settings', (req, res) => {
   res.render('author_settings');
 });
 
+router.get('/edit', (req, res) => {
+  res.render('author_edit');
+});
+
 router.post('/settings', urlencodedParser, [
   [
     check('author_name', 'Author name cannot be empty.').notEmpty(),
