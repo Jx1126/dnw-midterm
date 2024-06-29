@@ -27,6 +27,22 @@
       </div>
     </header>
 
+    <!-- Display success message if comment is posted successfully -->
+    <div class="flex justify-center items-center">
+      <% if(typeof success != 'undefined') { %>
+        <div id="success_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+          <strong class="font-bold">Success:</strong>
+          <span class="block sm:inline">
+            <%= success %>
+          </span>
+          <!-- Close icon that remove the success message on click -->
+          <button onclick="removeMessage()" class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </button>
+        </div>
+      <% } %>
+    </div>
+
     <!-- Links to reader homepage -->
     <div class="flex ml-10 mt-5 ">
       <form action="/reader/home" method="GET">
@@ -198,22 +214,37 @@
 
         <!-- New comment input -->
         <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
-          <!-- Input for commenter name -->
-          <label class="form-control w-full max-w-xs">
-            <div class="label">
-              <span class="label-text text-slate-500 font-semibold text-md">Commenter's name</span>
+          <form action="/reader/article" method="POST">
+            <div class="flex flex-col gap-3">
+              <!-- Display input error messages -->
+              <% if(typeof alert != 'undefined') { %>
+                <% alert.forEach(function(error) { %>
+                  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl w-full" role="alert">
+                    <strong class="font-bold">Invalid Input:</strong>
+                    <span class="block sm:inline">
+                      <%= error.msg %>
+                    </span>
+                  </div>
+                <% }) %>
+              <% } %>
             </div>
-            <input type="text" placeholder="Name" class="input input-bordered w-full max-w-xs " />
-          </label>
-          <!-- Input for the comment -->
-          <label class="form-control">
-            <div class="label">
-              <span class="label-text text-slate-500 font-semibold text-md">Comment</span>
-            </div>
-            <textarea class="textarea textarea-bordered h-24 resize" placeholder="Enter your message.."></textarea>
-          </label>
-          <!-- Submit comment button -->
-          <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+            <!-- Input for commenter name -->
+            <label class="form-control w-full max-w-xs">
+              <div class="label">
+                <span class="label-text text-slate-500 font-semibold text-md">Commenter's name</span>
+              </div>
+              <input name="commenter_name" type="text" placeholder="Name" class="input input-bordered w-full max-w-xs " />
+            </label>
+            <!-- Input for the comment -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text text-slate-500 font-semibold text-md">Comment</span>
+              </div>
+              <textarea name="comment" class="textarea textarea-bordered h-24 resize" placeholder="Enter your message.."></textarea>
+            </label>
+            <!-- Submit comment button -->
+            <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+          </form>
         </div>
       </div>
     </section>
@@ -269,6 +300,13 @@
       // Close the dropdown after selection
       const dropdown = document.getElementById('dropdown');
       dropdown.removeAttribute('open');
+    }
+
+    function removeMessage() {
+      const remove_message = document.getElementById("success_message");
+      if (remove_message) {
+        remove_message.remove();
+      }
     }
   </script>
 </html>

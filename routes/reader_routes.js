@@ -1,5 +1,7 @@
+// Set up express, bodyparser and EJS
 const express = require('express');
 const router = express();
+const { check, validationResult } = require('express-validator')
 var bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -11,7 +13,29 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/article', (req, res) => {
-    res.render('reader_articles');
+  if(req.query.success) {
+    return res.render('reader_articles', {success: 'Comment posted successfully.'});
+  }
+  res.render('reader_articles');
 });
+
+router.post('/article', urlencodedParser, [
+  [
+    check('commenter_name', 'Name cannot be empty.').notEmpty(),
+    check('commenter_name', 'Name must be between 3 to 40 characters.').isLength({min: 3, max: 40}),
+    check('comment', 'Comment cannot be empty.').notEmpty(),
+  ],
+  (req, res) => {
+      const errors = validationResult(req);
+      if(!errors.isEmpty()) {
+          const alert = errors.array()
+          res.render('reader_articles', {
+              alert
+          })
+      }else{
+          return res.redirect('/reader/article?success=1')
+      }
+  }
+])
 
 module.exports = router;

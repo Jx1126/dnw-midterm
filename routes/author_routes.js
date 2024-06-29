@@ -34,13 +34,11 @@ router.post('/settings', urlencodedParser, [
   (req, res) => {
       const errors = validationResult(req);
       if(!errors.isEmpty()) {
-          // return res.status(422).jsonp(errors.array())
           const alert = errors.array()
           res.render('author_settings', {
               alert
           })
       }else{
-          // res.send('Successfully registered for '+req.body.username)
           return res.redirect('/author/home?success=1')
       }
   }
