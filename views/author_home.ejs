@@ -9,24 +9,8 @@
   <body>
 
     <!-- Header Navbar -->
-    <header class="navbar bg-slate-300 text-slate-500 font-bold p-4">
-      <div class="navbar-start">
-        <!-- Home button to lead users back to the localhost mainpage -->
-        <form action="/" method="GET">
-          <button type="submit" class="font-bold btn btn-square btn-outline border-none text-primary-color hover:bg-slate-400 hover:text-slate-700">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-            </svg>                   
-          </button>
-        </form>
-      </div>
-      <div class="navbar-center">
-        <!-- Website name at the center of the navbar -->
-        <a style="font-weight: bolder !important;" class="btn btn-outline text-3xl font-bold border-none hover:bg-inherit text-slate-600 hover:tracking-wide hover:text-slate-500">BLOG-IT</a>
-      </div>
-      <div class="navbar-end">
-      </div>
-    </header>
+    <%- include('../views/layout/header.ejs') %>
+
 
     <!-- Message to display when the user successfully updates their settings -->
     <div class="flex justify-center items-center">
@@ -412,11 +396,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer footer-center font-bold text-slate-500 bg-slate-300 p-4">
-      <aside>
-        <p>Copyright © 2024 - All right reserved by Wong Jin Xuan</p>
-      </aside>
-    </footer>
+    <%- include('../views/layout/footer.ejs') %>
 
     <!-- New draft button with a fixed positioning -->
     <form action="/author/edit" method="GET">
