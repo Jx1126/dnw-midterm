@@ -34,12 +34,20 @@ app.get('/', (req, res) => {
 const usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
 
-const authorRoutes = require('./routes/author_routes');
-app.use('/author', authorRoutes);
+const authorHome = require('./routes/author_home');
+app.use('/author', authorHome);
 
-const readerRoutes = require('./routes/reader_routes')
-app.use('/reader', readerRoutes)
+const authorSettings = require('./routes/author_settings');
+app.use('/author', authorSettings);
 
+const authorEdit = require('./routes/author_edit');
+app.use('/author', authorEdit);
+
+const readerHome = require('./routes/reader_home');
+app.use('/reader', readerHome);
+
+const readerArticles = require('./routes/reader_articles');
+app.use('/reader', readerArticles);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {
