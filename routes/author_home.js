@@ -14,7 +14,7 @@ router.get('/home', (req, res) => {
   db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
     if (err) {
       console.error('Error querying the database: ' + err.message);
-      return res.render('reader_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
+      return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
     } else {
       // create object to pass in
       let obj = { author: row }
