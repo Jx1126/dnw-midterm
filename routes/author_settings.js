@@ -23,11 +23,18 @@ router.post('/settings', urlencodedParser, [
       const errors = validationResult(req);
       if(!errors.isEmpty()) {
           const alert = errors.array()
-          res.render('author_settings', {
-              alert
-          })
+          res.render('author_settings', { alert })
       }else{
-          return res.redirect('/author/home?success=1')
+        const { author_name, blog_title } = req.body;
+        const sql = `UPDATE Authors SET author_name = ?, blog_title = ? WHERE author_id = 1;`;
+        db.query(sql, [author_name, blog_title], (err, data) => {
+          if(err) {
+            console.log(err)
+            return res.status(500).send('Internal server error')
+          } else {
+            return res.redirect('/author/home?success=1')
+          }
+        })
       }
   }
 ])
