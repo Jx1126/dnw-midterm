@@ -21,7 +21,12 @@ router.get('/home', (req, res) => {
             console.error('Error querying the database: ' + err.message);
             return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
         } else {
-            return res.render('author_home', { author: row, success: req.query.success ? 'Settings saved successfully.' : null });
+            // create object to pass in
+            let obj = { author: row }
+            if (req.query.success){
+                obj.success = 'Settings saved successfully.'
+            }
+                return res.render('author_home', obj);
         }
     });
 });
