@@ -9,16 +9,15 @@ router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
 
 router.get('/settings', (req, res) => {
+  // Query the database row with id = 1 for the author's name and blog title
   db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
     if (err) {
+      // If there is an error, render the page with default values
       console.error('Error querying the database: ' + err.message);
-      return res.render('author_settings', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
+      return res.render('reader_articles', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
     } else {
-      // create object to pass in
+      // Create object to pass in the author's name and blog title
       let obj = { author: row }
-      if (req.query.success) {
-        obj.success = 'Settings saved successfully.'
-      }
       return res.render('author_settings', obj);
     }
   });

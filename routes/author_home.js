@@ -8,27 +8,22 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
 
-// router.get('/home', (req, res) => {
-//   if(req.query.success) {
-//     return res.render('author_home', {success: 'Settings saved successfully.'});
-//   }
-//   res.render('author_home');
-// });
 
 router.get('/home', (req, res) => {
-    db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
-        if (err) {
-            console.error('Error querying the database: ' + err.message);
-            return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
-        } else {
-            // create object to pass in
-            let obj = { author: row }
-            if (req.query.success){
-                obj.success = 'Settings saved successfully.'
-            }
-                return res.render('author_home', obj);
-        }
-    });
+  // Query the database row with id = 1 for the author's name and blog title
+  db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
+    if (err) {
+      console.error('Error querying the database: ' + err.message);
+      return res.render('reader_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
+    } else {
+      // create object to pass in
+      let obj = { author: row }
+      if (req.query.success) {
+        obj.success = 'Settings saved successfully.'
+      }
+      return res.render('author_home', obj);
+    }
+  });
 });
 
 module.exports = router;
