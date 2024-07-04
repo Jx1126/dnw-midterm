@@ -23,4 +23,18 @@ router.get('/edit', (req, res) => {
   });
 });
 
+router.post('/edit', urlencodedParser, [[], (req, res) => {
+  const { article_title, article_content } = req.body;
+  const sql = `INSERT INTO Articles (title, content, author_id, type) VALUES (?, ?, ?, ?);`;
+  db.get(sql, [article_title, article_content, '1', 'draft'], (err, data) => {
+    if (err) {
+      console.log(err)
+      return res.status(500).send('Internal server error')
+    } else {
+      return res.redirect('/author/home?success=1')
+    }
+  })
+}]
+)
+
 module.exports = router;
