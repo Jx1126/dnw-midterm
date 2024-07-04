@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS Articles (
     modified DATETIME DEFAULT CURRENT_TIMESTAMP,
     publication DATETIME,
     type TEXT CHECK(type IN ('draft', 'published')),
-    FOREIGN KEY (author_id) REFERENCES Authors(id)
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
 -- Table for comments
