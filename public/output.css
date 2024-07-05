@@ -2288,6 +2288,14 @@ html {
   height: auto;
 }
 
+.h-40 {
+  height: 10rem;
+}
+
+.h-64 {
+  height: 16rem;
+}
+
 .max-h-96 {
   max-height: 24rem;
 }
@@ -2423,6 +2431,10 @@ html {
 
 .whitespace-nowrap {
   white-space: nowrap;
+}
+
+.whitespace-pre-line {
+  white-space: pre-line;
 }
 
 .text-nowrap {
