@@ -10,7 +10,7 @@ router.use(express.static(__dirname + '/public')); // set location of static fil
 
 
 router.get('/home', (req, res) => {
-  const checkSettings = new Promise((resolve, reject) => {
+  const getBlogInformation = new Promise((resolve, reject) => {
     db.get(`SELECT author_name, blog_title FROM Authors WHERE author_id = 1`, (err, row) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
@@ -43,9 +43,9 @@ router.get('/home', (req, res) => {
     });
   });
 
-  Promise.all([checkSettings, getPublishedArticles, getDraftArticles])
-    .then(([checkSettings, getPublishedArticles, getDraftArticles]) => {
-      let obj = { author: checkSettings, published: getPublishedArticles, draft: getDraftArticles }
+  Promise.all([getBlogInformation, getPublishedArticles, getDraftArticles])
+    .then(([getBlogInformation, getPublishedArticles, getDraftArticles]) => {
+      let obj = { author: getBlogInformation, published: getPublishedArticles, draft: getDraftArticles }
       if (req.query.success) {
         obj.success = 'Settings saved successfully.'
       }
@@ -55,7 +55,6 @@ router.get('/home', (req, res) => {
       console.error('Error querying the database: ' + err.message);
       return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
     });
-
 });
 
 module.exports = router;
