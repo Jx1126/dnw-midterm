@@ -11,7 +11,8 @@ router.use(express.static(__dirname + '/public')); // set location of static fil
 
 router.get('/home', (req, res) => {
   const getBlogInformation = new Promise((resolve, reject) => {
-    db.get(`SELECT author_name, blog_title FROM Authors WHERE author_id = 1`, (err, row) => {
+    const sql = `SELECT author_name, blog_title FROM Authors WHERE author_id = 1`;
+    db.get(sql, (err, row) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
         reject(err);
@@ -22,23 +23,25 @@ router.get('/home', (req, res) => {
   });
 
   const getPublishedArticles = new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM Articles WHERE type = 'published'`, (err, rows) => {
+    const sql = `SELECT * FROM Articles WHERE type = 'published'`;
+    db.all(sql, (err, rows) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
         reject(err);
       } else {
-        resolve(rows);
+        resolve(rows || []);
       }
     });
   });
 
   const getDraftArticles = new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM Articles WHERE type = 'draft'`, (err, rows) => {
+    const sql = `SELECT * FROM Articles WHERE type = 'draft'`;
+    db.all(sql, (err, rows) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
         reject(err);
       } else {
-        resolve(rows);
+        resolve(rows || []);
       }
     });
   });
@@ -55,6 +58,17 @@ router.get('/home', (req, res) => {
       console.error('Error querying the database: ' + err.message);
       return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
     });
+});
+
+router.get('/delete', (req, res) => {
+  const sql = `DELETE FROM Articles WHERE id = ?`;
+  const article_id = req.query.id;
+  db.run(sql, article_id, (err) => {
+    if (err) {
+      console.error('Error deleting the article: ' + err.message);
+    }
+    return res.redirect('/author/home');
+  });
 });
 
 module.exports = router;

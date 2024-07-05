@@ -12,7 +12,7 @@
 
     <!-- Display success message if comment is posted successfully -->
     <div class="flex justify-center items-center">
-      <% if(typeof success != 'undefined') { %>
+      <% if(typeof(success) != 'undefined') { %>
         <div id="success_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
           <strong class="font-bold">Success:</strong>
           <span class="block sm:inline">
@@ -62,16 +62,17 @@
           <!-- Container for the article title and content -->
           <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
             <!-- Article title -->
-            <h1 class="text-3xl text-start">Article Title</h1>
+            <h1>
+              <% if (typeof(published) != 'undefined') { %>
+                <%= published.title %>
+              <% } %>
+            </h1>
+
             <!-- Article content -->
             <p class="text-xl pt-4 font-semibold text-slate-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus cumque ratione blanditiis, molestias nisi quisquam corrupti. Blanditiis numquam illo excepturi corporis aperiam? Accusamus harum, rem aspernatur molestiae illum officiis id!
-              <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consectetur aut laborum? Dolorem magnam ullam soluta hic necessitatibus iste inventore doloremque blanditiis, provident quas similique vero? Ad veniam non dicta.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique illo exercitationem molestias ipsa magnam dicta blanditiis. Quae autem consectetur tempore eveniet quam beatae placeat. Quam perferendis voluptatum nisi ut voluptate?
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias obcaecati libero quia, numquam eum voluptatem atque? Recusandae mollitia in, esse magnam quae sequi illum incidunt beatae officia consequatur suscipit pariatur.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. A error rem numquam nemo minima magni veniam doloremque asperiores quae? Maiores, obcaecati voluptatum inventore qui iste earum saepe nemo aliquam dolores?
-              <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam cum consequuntur reiciendis qui nihil dolor iste! Nostrum, incidunt asperiores ea at, odit similique rerum delectus voluptas voluptates eos pariatur repellat.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur eligendi, quis deserunt quibusdam possimus esse reprehenderit accusamus velit consequatur. Et maxime reiciendis sed dolor perferendis ducimus dicta est beatae harum.
+              <% if (typeof(published) != 'undefined') { %>
+                <%- published.content %>
+              <% } %>
             </p>
             <!-- Like button -->
             <a onclick="updateLikeButton()" id="like_button" article_liked="false" class="btn btn-outline btn-wide border-red-400 text-red-700 border-2 mt-5 hover:bg-red-300 hover:text-red-900 hover:border-red-300 hover:shadow">
@@ -101,7 +102,7 @@
               </svg>            
               <!-- Author name   -->
               <p>
-                Yii Long Ma
+                <%= author.author_name %>
               </p>
             </div>
             <!-- Publication date section -->
@@ -114,7 +115,9 @@
               </svg>                       
               <!-- Publication date -->
               <p>
-                26 November 2023
+                <% if (typeof(published) != 'undefined') { %>
+                  <%= published.publication %>
+                <% } %>
               </p>
             </div>
             <!-- Views section -->
@@ -128,7 +131,9 @@
               </svg>     
               <!-- Views amount -->
               <p>
-                10,000,000         
+                <% if (typeof(published) != 'undefined') { %>
+                  <%= published.reads %>
+                <% } %>
               </p>
             </div>
             <!-- Likes section -->
@@ -141,7 +146,9 @@
               </svg>  
               <!-- Likes amount -->
               <p>
-                5,000,000
+                <% if (typeof(published) != 'undefined') { %>
+                  <%= published.likes %>
+                <% } %>
               </p>
             </div>
           </div>
@@ -200,7 +207,7 @@
           <form action="/reader/article" method="POST">
             <div class="flex flex-col gap-3">
               <!-- Display input error messages -->
-              <% if(typeof alert != 'undefined') { %>
+              <% if(typeof(alert) != 'undefined') { %>
                 <% alert.forEach(function(error) { %>
                   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl w-full" role="alert">
                     <strong class="font-bold">Invalid Input:</strong>

@@ -48,7 +48,7 @@
             <!-- Article title -->
             <h2 class="card-title text-slate-700"><%= article.title %></h2>
             <!-- Article description -->
-            <p class="text-slate-600"><%= article.content %></p>
+            <p class="text-slate-600"><%- article.content %></p>
             <!-- Container that stores the article information -->
             <div class="flex flex-col justify-start gap-x-4 mt-5">
               <!-- Container to store the view icon and the views amount in a row -->
@@ -90,13 +90,13 @@
             <!-- Action section for the card -->
             <div class="card-actions mt-3 items-center justify-between">
               <!-- Links to the article -->
-              <form action="/reader/article" method="GET" class="flex-grow">
+              <a href="/reader/article?id=<%= typeof(article) != 'undefined' ? article.id : 'new'%>" class="flex-grow">
                 <button type="submit" class="btn btn-primary w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                   </svg>                
                   START READING!</button>
-              </form>
+                </a>
             </div>
           </div>
         </div>
