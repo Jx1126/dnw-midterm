@@ -38,6 +38,11 @@ CREATE TABLE IF NOT EXISTS Comments (
 
 -- Entering some placeholder data for demonstration purposes 
 INSERT INTO Authors (author_name, blog_title) VALUES ('Default Author', 'Default Title');
+INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) VALUES ('Example Title', 'Example Content', 50, 30, 1, '2024-01-10', '2024-02-13', '2021-02-15', 'draft');
+INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) VALUES ('Example Title 2', 'Example Content 2', 150, 130, 1, '2024-02-11', '2024-02-14', '2021-02-16', 'draft');
+INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) VALUES ('Example Title 3', 'Example Content 3', 100, 50, 1, '2024-03-12', '2024-02-15', '2021-02-17', 'published');
+INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) VALUES ('Example Title 4', 'Example Content 4', 50, 10, 1, '2024-04-14', '2024-02-17', '2021-02-19', 'published');
+INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) VALUES ('Example Title 5', 'Example Content 5', 70, 20, 1, '2024-05-16', '2024-02-19', '2021-02-21', 'published');
 
 COMMIT;
 

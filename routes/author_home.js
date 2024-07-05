@@ -11,19 +11,66 @@ router.use(express.static(__dirname + '/public')); // set location of static fil
 
 router.get('/home', (req, res) => {
   // Query the database row with id = 1 for the author's name and blog title
-  db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
-    if (err) {
-      console.error('Error querying the database: ' + err.message);
-      return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
-    } else {
-      // create object to pass in
-      let obj = { author: row }
+  // db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
+  //   if (err) {
+  //     console.error('Error querying the database: ' + err.message);
+  //     return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
+  //   } else {
+  //     // create object to pass in
+  //     let obj = { author: row }
+  //     if (req.query.success) {
+  //       obj.success = 'Settings saved successfully.'
+  //     }
+  //     return res.render('author_home', obj);
+  //   }
+  // });
+
+  const checkSettings = new Promise((resolve, reject) => {
+    db.get(`SELECT author_name, blog_title FROM Authors WHERE author_id = 1`, (err, row) => {
+      if (err) {
+        console.error('Error querying the database: ' + err.message);
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+
+  const getPublishedArticles = new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Articles WHERE type = 'published'`, (err, rows) => {
+      if (err) {
+        console.error('Error querying the database: ' + err.message);
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+
+  const getDraftArticles = new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM Articles WHERE type = 'draft'`, (err, rows) => {
+      if (err) {
+        console.error('Error querying the database: ' + err.message);
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+
+  Promise.all([checkSettings, getPublishedArticles, getDraftArticles])
+    .then(([checkSettings, getPublishedArticles, getDraftArticles]) => {
+      let obj = { author: checkSettings, published: getPublishedArticles, draft: getDraftArticles }
       if (req.query.success) {
         obj.success = 'Settings saved successfully.'
       }
       return res.render('author_home', obj);
-    }
-  });
+    })
+    .catch((err) => {
+      console.error('Error querying the database: ' + err.message);
+      return res.render('author_home', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Settings saved successfully.' : null });
+    });
+
 });
 
 module.exports = router;
