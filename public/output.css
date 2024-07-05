@@ -2233,6 +2233,20 @@ html {
   margin-top: auto;
 }
 
+.line-clamp-5 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 .block {
   display: block;
 }
@@ -2272,6 +2286,14 @@ html {
 
 .h-auto {
   height: auto;
+}
+
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.max-h-24 {
+  max-height: 6rem;
 }
 
 .w-40 {
@@ -2338,6 +2360,10 @@ html {
   flex-direction: column;
 }
 
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
 .items-center {
   align-items: center;
 }
@@ -2389,6 +2415,18 @@ html {
 
 .scroll-smooth {
   scroll-behavior: smooth;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.text-nowrap {
+  text-wrap: nowrap;
 }
 
 .rounded {
