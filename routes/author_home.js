@@ -61,9 +61,8 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/delete', (req, res) => {
-  const sql = `DELETE FROM Articles WHERE id = ?`;
-  const article_id = req.query.id;
-  db.run(sql, article_id, (err) => {
+  const sql = `DELETE FROM Articles WHERE id = '${req.query.id}'`;
+  db.run(sql, (err) => {
     if (err) {
       console.error('Error deleting the article: ' + err.message);
     }
