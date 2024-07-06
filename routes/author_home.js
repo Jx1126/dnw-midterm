@@ -61,7 +61,7 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/publish', (req, res) => {
-  const sql = `UPDATE Articles SET type = 'published' WHERE id = '${req.query.id}'`;
+  const sql = `UPDATE Articles SET publication = DATE('now'), type = 'published' WHERE id = '${req.query.id}'`;
   db.run(sql, (err) => {
     if (err) {
       console.error('Error publishing the article: ' + err.message);
