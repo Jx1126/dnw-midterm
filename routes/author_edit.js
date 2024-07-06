@@ -47,25 +47,25 @@ router.get('/edit', (req, res) => {
 });
 
 router.post('/edit', urlencodedParser, [], (req, res) => {
-  const saveDraft = new Promise((resolve, reject) => {
-    // if (req.body.changes = 'saved' && req.body.id != 'new') {
-      const { edit_title, edit_content } = req.body;
-      const sql = `UPDATE Articles SET title = ?, content = ? WHERE id = ?'`;
-      db.run(sql, [edit_title, edit_content, req.body.id], (err) => {
-        if (err) {
-          console.error('Error querying the database: ' + err.message);
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    // }
-  });
+  const { edit_title, edit_content, article_id } = req.body;
 
-  const createDraft = new Promise((resolve, reject) => {
-    // if (req.body.changes = 'saved' && req.body.id == 'new') {
+  let saveDraft;
+  
+  if (article_id && article_id != 'new') {
+    saveDraft = new Promise((resolve, reject) => {
+      const sql = `UPDATE Articles SET title = ?, content = ? WHERE id = ?`;
+      db.run(sql, [edit_title, edit_content, article_id], (err) => {
+          if (err) {
+            console.error('Error querying the database: ' + err.message);
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+    });
+  } else {
+    saveDraft = new Promise((resolve, reject) => {
       const sql = `INSERT INTO Articles (author_id, title, content, type) VALUES (1, ?, ?, 'draft')`;
-      const {edit_title, edit_content} = req.body;
       db.run(sql, [edit_title, edit_content], (err) => {
         if (err) {
           console.error('Error querying the database: ' + err.message);
@@ -74,18 +74,16 @@ router.post('/edit', urlencodedParser, [], (req, res) => {
           resolve();
         }
       });
-    // }
-  });
+    });
+  }
 
-  Promise.all([saveDraft, createDraft])
-    .then(() => {
+  saveDraft.then(() => {
       return res.redirect('/author/home?changes=saved');
     })
     .catch((err) => {
       console.error('Error querying the database: ' + err.message);
       return res.status(500).send('Internal server error');
     });
-
 });
 
 module.exports = router;

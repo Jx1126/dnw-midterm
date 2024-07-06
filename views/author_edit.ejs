@@ -40,7 +40,7 @@
           <p class="font-medium text-lg text-slate-400"> Last Modified: <%= typeof(draft) != 'undefined' ? draft.modified : '' %></p>
         </div>          
           <!-- New comment input -->
-          <form method="POST" class="flex flex-col">
+          <form action="/author/edit" method="POST" class="flex flex-col">
             <!-- Input for commenter name -->
             <label class="form-control w-full max-w-xs">
               <div class="label mt-5">
@@ -55,10 +55,12 @@
               </div>
               <textarea class="textarea textarea-bordered h-64 resize whitespace-pre-line" placeholder="Content" name="edit_content" id="article_content" autocomplete="off"><%= typeof(draft) != 'undefined' ? draft.content : ''%></textarea>
             </label>
+
+            <input type="hidden" name="article_id" value="<%= typeof(draft) != 'undefined' && draft.id ? draft.id : 'new' %>">
             <!-- Submit comment button -->
-            <a href="/author/edit?changes=saved" method="POST" class="btn btn-primary w-full mt-3">
+            <button type="submit" class="btn btn-primary w-full mt-3">
               Submit Changes
-            </a>
+            </button>
           </form>
       </div>
     </div>
