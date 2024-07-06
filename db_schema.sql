@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS Articles (
   reads INTEGER DEFAULT 0,
   likes INTEGER DEFAULT 0,
   author_id INTEGER,
-  creation DATE DEFAULT CURRENT_TIMESTAMP,
-  modified DATE DEFAULT CURRENT_TIMESTAMP,
+  creation DATE,
+  modified DATE,
   publication DATE,
   type TEXT CHECK(type IN ('draft', 'published')),
   FOREIGN KEY (author_id) REFERENCES Authors(author_id)

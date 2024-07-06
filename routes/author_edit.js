@@ -65,7 +65,7 @@ router.post('/edit', urlencodedParser, [], (req, res) => {
     });
   } else {
     saveDraft = new Promise((resolve, reject) => {
-      const sql = `INSERT INTO Articles (author_id, title, content, type) VALUES (1, ?, ?, 'draft')`;
+      const sql = `INSERT INTO Articles (author_id, title, content, creation, modified, type) VALUES (1, ?, ?, DATE('now'), DATE('now'), 'draft')`;
       db.run(sql, [edit_title, edit_content], (err) => {
         if (err) {
           console.error('Error querying the database: ' + err.message);
