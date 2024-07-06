@@ -60,6 +60,16 @@ router.get('/home', (req, res) => {
     });
 });
 
+router.get('/publish', (req, res) => {
+  const sql = `UPDATE Articles SET type = 'published' WHERE id = '${req.query.id}'`;
+  db.run(sql, (err) => {
+    if (err) {
+      console.error('Error publishing the article: ' + err.message);
+    }
+    return res.redirect('/author/home');
+  });
+});
+
 router.get('/delete', (req, res) => {
   const sql = `DELETE FROM Articles WHERE id = '${req.query.id}'`;
   db.run(sql, (err) => {

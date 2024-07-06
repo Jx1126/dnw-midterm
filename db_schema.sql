@@ -19,9 +19,9 @@ CREATE TABLE IF NOT EXISTS Articles (
   reads INTEGER DEFAULT 0,
   likes INTEGER DEFAULT 0,
   author_id INTEGER,
-  creation DATETIME DEFAULT CURRENT_TIMESTAMP,
-  modified DATETIME DEFAULT CURRENT_TIMESTAMP,
-  publication DATETIME,
+  creation DATE DEFAULT CURRENT_TIMESTAMP,
+  modified DATE DEFAULT CURRENT_TIMESTAMP,
+  publication DATE,
   type TEXT CHECK(type IN ('draft', 'published')),
   FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Comments (
   article_id INTEGER,
   commenter TEXT NOT NULL,
   comment TEXT NOT NULL,
-  creation DATETIME DEFAULT CURRENT_TIMESTAMP,
+  creation DATE DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (article_id) REFERENCES Articles(id)
 );
 
