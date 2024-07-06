@@ -2233,13 +2233,6 @@ html {
   margin-top: auto;
 }
 
-.line-clamp-5 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-}
-
 .line-clamp-3 {
   overflow: hidden;
   display: -webkit-box;
@@ -2284,24 +2277,12 @@ html {
   height: 15rem;
 }
 
-.h-auto {
-  height: auto;
-}
-
-.h-40 {
-  height: 10rem;
-}
-
 .h-64 {
   height: 16rem;
 }
 
-.max-h-96 {
-  max-height: 24rem;
-}
-
-.max-h-24 {
-  max-height: 6rem;
+.h-auto {
+  height: auto;
 }
 
 .w-40 {
@@ -2368,10 +2349,6 @@ html {
   flex-direction: column;
 }
 
-.flex-nowrap {
-  flex-wrap: nowrap;
-}
-
 .items-center {
   align-items: center;
 }
@@ -2425,20 +2402,8 @@ html {
   scroll-behavior: smooth;
 }
 
-.text-ellipsis {
-  text-overflow: ellipsis;
-}
-
-.whitespace-nowrap {
-  white-space: nowrap;
-}
-
 .whitespace-pre-line {
   white-space: pre-line;
-}
-
-.text-nowrap {
-  text-wrap: nowrap;
 }
 
 .rounded {

@@ -22,15 +22,17 @@ router.get('/edit', (req, res) => {
   });
 
   const getDraftArticle = new Promise((resolve, reject) => {
-    const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}'`;
-    db.get(sql, (err, row) => {
-      if (err) {
-        console.error('Error querying the database: ' + err.message);
-        reject(err);
-      } else {
-        resolve(row);
-      }
-    });
+    if (req.query.id != 'new') {
+      const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}'`;
+      db.get(sql, (err, row) => {
+        if (err) {
+          console.error('Error querying the database: ' + err.message);
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    } 
   });
 
   Promise.all([getBlogInformation, getDraftArticle])
@@ -42,6 +44,48 @@ router.get('/edit', (req, res) => {
       console.error('Error querying the database: ' + err.message);
       return res.render('author_edit', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
     });
+});
+
+router.post('/edit', urlencodedParser, [], (req, res) => {
+  const saveDraft = new Promise((resolve, reject) => {
+    // if (req.body.changes = 'saved' && req.body.id != 'new') {
+      const { edit_title, edit_content } = req.body;
+      const sql = `UPDATE Articles SET title = ?, content = ? WHERE id = ?'`;
+      db.run(sql, [edit_title, edit_content, req.body.id], (err) => {
+        if (err) {
+          console.error('Error querying the database: ' + err.message);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    // }
+  });
+
+  const createDraft = new Promise((resolve, reject) => {
+    // if (req.body.changes = 'saved' && req.body.id == 'new') {
+      const sql = `INSERT INTO Articles (author_id, title, content, type) VALUES (1, ?, ?, 'draft')`;
+      const {edit_title, edit_content} = req.body;
+      db.run(sql, [edit_title, edit_content], (err) => {
+        if (err) {
+          console.error('Error querying the database: ' + err.message);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    // }
+  });
+
+  Promise.all([saveDraft, createDraft])
+    .then(() => {
+      return res.redirect('/author/home?changes=saved');
+    })
+    .catch((err) => {
+      console.error('Error querying the database: ' + err.message);
+      return res.status(500).send('Internal server error');
+    });
+
 });
 
 module.exports = router;

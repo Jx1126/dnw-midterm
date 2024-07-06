@@ -36,8 +36,8 @@
       <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg justify-start">
         <p class="font-medium text-xl text-slate-500">Article Data</p>
         <div class="flex flex-col gap-0 sm:flex-row sm:gap-5">
-          <p class="font-medium text-lg text-slate-400"> Created: <%= draft.creation %></p>
-          <p class="font-medium text-lg text-slate-400"> Last Modified: <%= draft.modified %></p>
+          <p class="font-medium text-lg text-slate-400"> Created: <%= typeof(draft) != 'undefined' ? draft.creation : '' %></p>
+          <p class="font-medium text-lg text-slate-400"> Last Modified: <%= typeof(draft) != 'undefined' ? draft.modified : '' %></p>
         </div>          
           <!-- New comment input -->
           <form method="POST" class="flex flex-col">
@@ -56,9 +56,9 @@
               <textarea class="textarea textarea-bordered h-64 resize whitespace-pre-line" placeholder="Content" name="edit_content" id="article_content" autocomplete="off"><%= typeof(draft) != 'undefined' ? draft.content : ''%></textarea>
             </label>
             <!-- Submit comment button -->
-            <form action="/author/home?changes=saved" method="POST">
-              <button type="submit" class="btn btn-primary w-full mt-3">Submit Changes</button>
-            </form>
+            <a href="/author/edit?changes=saved" method="POST" class="btn btn-primary w-full mt-3">
+              Submit Changes
+            </a>
           </form>
       </div>
     </div>
