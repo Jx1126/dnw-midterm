@@ -53,7 +53,7 @@ router.post('/edit', urlencodedParser, [], (req, res) => {
   
   if (article_id && article_id != 'new') {
     saveDraft = new Promise((resolve, reject) => {
-      const sql = `UPDATE Articles SET title = ?, content = ? WHERE id = ?`;
+      const sql = `UPDATE Articles SET title = ?, content = ?, modified = DATE('now') WHERE id = ?`;
       db.run(sql, [edit_title, edit_content, article_id], (err) => {
           if (err) {
             console.error('Error querying the database: ' + err.message);
