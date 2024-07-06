@@ -53,14 +53,14 @@
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Author name?</span>
                 </div>
-                <input type="text" placeholder="Name" autocomplete="off" class="input input-bordered w-full max-w-xs" name="author_name" id="author_name" />
+                <input type="text" placeholder="Name" autocomplete="off" class="input input-bordered w-full max-w-xs" name="author_name" id="author_name" value="<%= typeof(author) != 'undefined' ? author.author_name : '' %>" />
               </label>
       
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Blog title?</span>
                 </div>
-                <input type="text" placeholder="Title" autocomplete="off" class="input input-bordered w-full max-w-xs" name="blog_title" id="blog_title" />
+                <input type="text" placeholder="Title" autocomplete="off" class="input input-bordered w-full max-w-xs" name="blog_title" id="blog_title" value="<%= typeof(author) != 'undefined' ? author.blog_title : '' %>" />
               </label>
               <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
             </form>
