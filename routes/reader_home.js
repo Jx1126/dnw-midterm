@@ -32,9 +32,6 @@ router.get('/home', (req, res) => {
       case 'read':
         sort_query = 'ORDER BY reads DESC';
         break;
-      // case 'publication':
-      //   sort_query = 'ORDER BY publication DESC';
-      //   break;
       default:
         sort_query = 'ORDER BY publication DESC';
         break;
@@ -52,7 +49,7 @@ router.get('/home', (req, res) => {
 
   Promise.all([getBlogInformation, getPublishedArticles])
     .then(([getBlogInformation, getPublishedArticles]) => {
-      let obj = { author: getBlogInformation, published: getPublishedArticles }
+      let obj = { author: getBlogInformation, published: getPublishedArticles, sort: req.query.sort}
       if (req.query.success) {
         obj.success = 'Settings saved successfully.'
       }
