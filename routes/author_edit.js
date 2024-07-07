@@ -53,7 +53,7 @@ router.post('/edit', urlencodedParser, [], (req, res) => {
   
   if (article_id && article_id != 'new') {
     saveDraft = new Promise((resolve, reject) => {
-      const sql = `UPDATE Articles SET title = ?, content = ?, modified = DATE('now') WHERE id = ?`;
+      const sql = `UPDATE Articles SET title = ?, content = ?, modified = CURRENT_TIMESTAMP WHERE id = ?`;
       db.run(sql, [edit_title, edit_content, article_id], (err) => {
           if (err) {
             console.error('Error querying the database: ' + err.message);
@@ -65,7 +65,7 @@ router.post('/edit', urlencodedParser, [], (req, res) => {
     });
   } else {
     saveDraft = new Promise((resolve, reject) => {
-      const sql = `INSERT INTO Articles (author_id, title, content, creation, modified, type) VALUES (1, ?, ?, DATE('now'), DATE('now'), 'draft')`;
+      const sql = `INSERT INTO Articles (author_id, title, content, type) VALUES (1, ?, ?, 'draft')`;
       db.run(sql, [edit_title, edit_content], (err) => {
         if (err) {
           console.error('Error querying the database: ' + err.message);
