@@ -22,7 +22,25 @@ router.get('/home', (req, res) => {
   });
 
   const getPublishedArticles = new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM Articles WHERE type = 'published'`, (err, rows) => {
+    const sort = req.query.sort;
+    let sort_query = '';
+
+    switch (sort) {
+      case 'like':
+        sort_query = 'ORDER BY likes DESC';
+        break;
+      case 'read':
+        sort_query = 'ORDER BY reads DESC';
+        break;
+      // case 'publication':
+      //   sort_query = 'ORDER BY publication DESC';
+      //   break;
+      default:
+        sort_query = 'ORDER BY publication DESC';
+        break;
+    }
+
+    db.all(`SELECT * FROM Articles WHERE type = 'published' ${sort_query}`, (err, rows) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
         reject(err);
