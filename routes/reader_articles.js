@@ -21,13 +21,31 @@ router.get('/article', (req, res) => {
     });
   });
 
-  const getPublishedArticles = new Promise((resolve, reject) => {
+  // const getPublishedArticles = new Promise((resolve, reject) => {
+  //   const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}';`;
+  //   db.get(sql, (err, rows) => {
+  //     if (err) {
+  //       console.error('Error querying the database: ' + err.message);
+  //       reject(err);
+  //     } else {
+  //       resolve(rows);
+  //     }
+  //   });
+  // });
+
+  const getPublishedArticle = new Promise((resolve, reject) => {
     const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}';`;
     db.get(sql, (err, rows) => {
       if (err) {
         console.error('Error querying the database: ' + err.message);
         reject(err);
       } else {
+        const updateViews = `UPDATE Articles SET reads = reads + 1 WHERE id = '${req.query.id}';`;
+        db.run(updateViews, (err) => {
+          if (err) {
+            console.error('Error updating views: ' + err.message);
+          }
+        });
         resolve(rows);
       }
     });
@@ -47,9 +65,9 @@ router.get('/article', (req, res) => {
     });
   });
 
-  Promise.all([getBlogInformation, getPublishedArticles, getComments])
-    .then(([getBlogInformation, getPublishedArticles, getComments]) => {
-      let obj = { author: getBlogInformation, published: getPublishedArticles, comments: getComments}
+  Promise.all([getBlogInformation, getPublishedArticle, getComments])
+    .then(([getBlogInformation, getPublishedArticle, getComments]) => {
+      let obj = { author: getBlogInformation, published: getPublishedArticle, comments: getComments}
       if (req.query.success) {
         obj.success = 'Comment posted successfully.'
       }
