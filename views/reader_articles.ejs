@@ -157,9 +157,9 @@
     </div>
 
     <!-- Comment section -->
-    <section id="comments" class="flex justify-center mt-0 sm:mt-5">
+    <section id="comments" class="flex justify-center mt-0 sm:mt-5 xl:mx-80 lg:mx-48 sm:mx-20">
       <!-- Container for the whole comment section -->
-      <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg max-w-7xl">
+      <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg max-w-7xl min-w-full">
         <!-- Container for the comment section title -->
         <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
           <h1 class="text-2xl text-start">
@@ -175,36 +175,42 @@
             </summary>
             <!-- Dropdown content for sorting the comments -->
             <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-              <li><a href="#" onclick="updateSortingText('Most Liked')">Most Liked</a></li>
-              <li><a href="#" onclick="updateSortingText('Most Viewed')">Most Viewed</a></li>
-              <li><a href="#" onclick="updateSortingText('Last Added')">Last Added</a></li>
+              <li><a href="/reader/article">Publication Date</a></li>
             </ul>
           </details>
         </div>
-        <!-- Container for the each comment -->
-        <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
-          <!-- Author section -->
-          <div class="flex items-center text-slate-500 font-medium text-lg gap-2 border-b-2 border-slate-300">
-            <!-- Author icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-            </svg>            
-            <!-- Author name   -->
-            <p>
-              Yii Long Ma
-            </p>
+        
+        <% if (comments && comments.length > 0) { %>
+          <% comments.forEach(comment => { %>
+            <!-- Container for the each comment -->
+            <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
+              <!-- Author section -->
+              <div class="flex items-center text-slate-500 font-medium text-lg gap-2 border-b-2 border-slate-300">
+                <!-- Author icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>            
+                <!-- Author name   -->
+                <p>
+                  <%= comment.commenter %>
+                </p>
+              </div>
+              <!-- Comment -->
+              <p class="text-xl pt-4 font-semibold text-slate-500">
+                <%= comment.comment %>
+              </p>
+              <p class="mt-5 text-slate-400 text-md font-semibold">Posted: <%= comment.creation %></p>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <div class="p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
+            <p class="text-slate-500 font-semibold">Be the first one to comment?</p>
           </div>
-          <!-- Comment -->
-          <p class="text-xl pt-4 font-semibold text-slate-500">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum animi labore, libero dolor quaerat fugit, enim numquam error nulla perspiciatis unde at rem consequuntur! Vel quisquam cupiditate omnis ut velit.
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae alias tempora nostrum dolores, aperiam, explicabo reprehenderit molestias cumque ullam dolor officiis enim dolore voluptate pariatur repellendus doloremque dolorem, exercitationem praesentium.
-            <br><br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, officiis quas a necessitatibus nostrum illo beatae eum eveniet, nulla quasi molestias inventore assumenda temporibus asperiores maiores dignissimos aliquam, amet vero.
-          </p>
-        </div>
+        <% } %>
 
         <!-- New comment input -->
         <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
-          <form action="/reader/article" method="POST">
+          <form action="/reader/article?id=<%= published && published.id ? published.id : '' %>" method="POST">
             <div class="flex flex-col gap-3">
               <!-- Display input error messages -->
               <% if(typeof(alert) != 'undefined') { %>
@@ -223,14 +229,14 @@
               <div class="label">
                 <span class="label-text text-slate-500 font-semibold text-md">Commenter's name</span>
               </div>
-              <input name="commenter_name" type="text" placeholder="Name" autocomplete="off" class="input input-bordered w-full max-w-xs " />
+              <input name="commenter_name" type="text" placeholder="Name" autocomplete="off" name="commenter" class="input input-bordered w-full max-w-xs " />
             </label>
             <!-- Input for the comment -->
             <label class="form-control">
               <div class="label">
                 <span class="label-text text-slate-500 font-semibold text-md">Comment</span>
               </div>
-              <textarea name="comment" class="textarea textarea-bordered h-24 resize" autocomplete="off" placeholder="Enter your message.."></textarea>
+              <textarea class="textarea textarea-bordered h-24 resize" autocomplete="off" name="comment" placeholder="Enter your message.."></textarea>
             </label>
             <!-- Submit comment button -->
             <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
@@ -270,23 +276,6 @@
         // Set the button design to liked state
         like_button.innerHTML = liked;
       }
-    }
-
-    // Function to update the sorting text shown on the dropdown button
-    function updateSortingText(selection) {
-      // Get the sort button element
-      const sort_button = document.getElementById('sort_button');
-      // Update the sorting text based on the selection
-      sort_button.innerHTML= `
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-        </svg>
-        Sort: ${selection}
-      `;
-
-      // Close the dropdown after selection
-      const dropdown = document.getElementById('dropdown');
-      dropdown.removeAttribute('open');
     }
 
     function removeMessage() {
