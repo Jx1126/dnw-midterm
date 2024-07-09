@@ -15,7 +15,7 @@
     <!-- Message to display when the user successfully updates their settings -->
     <div class="flex justify-center items-center">
       <% if(typeof success != 'undefined') { %>
-          <div id="settings_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+          <div id="settings_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
             <strong class="font-bold">Success:</strong>
             <span class="block sm:inline">
               <%= success %>
@@ -30,7 +30,7 @@
 
     <div class="flex justify-center items-center">
       <% if(typeof changes != 'undefined') { %>
-          <div id="draft_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+          <div id="draft_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
             <strong class="font-bold">Success:</strong>
             <span class="block sm:inline">
               <%= changes %>
@@ -45,7 +45,7 @@
 
     <div class="flex justify-center items-center">
       <% if(typeof deleted != 'undefined') { %>
-          <div id="delete_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+          <div id="delete_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
             <strong class="font-bold">Success:</strong>
             <span class="block sm:inline">
               <%= deleted %>
@@ -60,7 +60,7 @@
     
     <div class="flex justify-center items-center">
       <% if(typeof publish != 'undefined') { %>
-          <div id="published_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+          <div id="published_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
             <strong class="font-bold">Success:</strong>
             <span class="block sm:inline">
               <%= publish %>

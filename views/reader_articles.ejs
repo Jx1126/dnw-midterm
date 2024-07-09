@@ -13,7 +13,7 @@
     <!-- Display success message if comment is posted successfully -->
     <div class="flex justify-center items-center">
       <% if(typeof(success) != 'undefined') { %>
-        <div id="success_message" class="bg-green-100 border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
+        <div id="success_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
           <strong class="font-bold">Success:</strong>
           <span class="block sm:inline">
             <%= success %>
