@@ -57,6 +57,9 @@ router.get('/article', (req, res) => {
       if (req.query.success) {
         obj.success = 'Comment posted successfully.'
       }
+      if (req.query.errors) {
+        obj.alert = decodeURIComponent(req.query.errors).split('||');
+      }
       return res.render('reader_articles', obj);
     })
     .catch((err) => {
@@ -76,8 +79,8 @@ router.post('/article/comment', urlencodedParser, [
     const errors = validationResult(req);
     const { commenter_name, comment } = req.body;
     if(!errors.isEmpty()) {
-        const alert = errors.array()
-        return res.redirect(`/reader/article?id=${req.query.id}`)
+      const errorMessages = errors.array().map(error => error.msg);
+      return res.redirect(`/reader/article?id=${req.query.id}&errors=${encodeURIComponent(errorMessages.join('||'))}#new_comment`);
     }else{
       const sql = `INSERT INTO Comments (article_id, commenter, comment) VALUES (${req.query.id}, ?, ?)`;
       db.run(sql, [commenter_name, comment], (err) => {
