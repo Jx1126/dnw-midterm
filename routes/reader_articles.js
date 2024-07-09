@@ -74,17 +74,23 @@ router.post('/article', urlencodedParser, [
   ],
   (req, res) => {
     const errors = validationResult(req);
+    const { commenter_name, comment } = req.body;
     if(!errors.isEmpty()) {
         const alert = errors.array()
-        return res.status(500).send('Internal server error')
+        res.render('reader_articles', {
+            alert,
+            published: {},
+            author: { author_name: 'Default Author', blog_title: 'Default Blog' },
+            req: req,
+            comments: []
+        })
     }else{
-      const { commenter_name, comment } = req.body;
       const article_id = req.query.id;
       const sql = `INSERT INTO Comments (article_id, commenter, comment) VALUES (?, ?, ?)`;
       db.run(sql, [article_id, commenter_name, comment], (err) => {
         if (err) {
           console.error('Error posting comment: ' + err.message);
-          return res.redirect(`/reader/article?id=${article_id}#comments`, { alert, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
+          return res.status(500).send('Error posting comment');
         }
       });
       return res.redirect(`/reader/article?id=${article_id}&success=1#comments`)
