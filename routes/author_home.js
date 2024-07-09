@@ -56,6 +56,9 @@ router.get('/home', (req, res) => {
       if(req.query.deleted == 'true') {
         obj.deleted = 'Article deleted successfully.'
       }
+      if(req.query.publish == 'true') {
+        obj.publish = 'Article published successfully.'
+      }
       return res.render('author_home', obj);
     })
     .catch((err) => {
@@ -70,7 +73,7 @@ router.get('/publish', (req, res) => {
     if (err) {
       console.error('Error publishing the article: ' + err.message);
     }
-    return res.redirect('/author/home');
+    return res.redirect('/author/home?publish=true');
   });
 });
 
