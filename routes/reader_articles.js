@@ -21,18 +21,6 @@ router.get('/article', (req, res) => {
     });
   });
 
-  // const getPublishedArticles = new Promise((resolve, reject) => {
-  //   const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}';`;
-  //   db.get(sql, (err, rows) => {
-  //     if (err) {
-  //       console.error('Error querying the database: ' + err.message);
-  //       reject(err);
-  //     } else {
-  //       resolve(rows);
-  //     }
-  //   });
-  // });
-
   const getPublishedArticle = new Promise((resolve, reject) => {
     const sql = `SELECT * FROM Articles WHERE id = '${req.query.id}';`;
     db.get(sql, (err, rows) => {
@@ -67,7 +55,7 @@ router.get('/article', (req, res) => {
 
   Promise.all([getBlogInformation, getPublishedArticle, getComments])
     .then(([getBlogInformation, getPublishedArticle, getComments]) => {
-      let obj = { author: getBlogInformation, published: getPublishedArticle, comments: getComments}
+      let obj = { author: getBlogInformation, published: getPublishedArticle, comments: getComments, req: req}
       if (req.query.success) {
         obj.success = 'Comment posted successfully.'
       }
@@ -75,7 +63,7 @@ router.get('/article', (req, res) => {
     })
     .catch((err) => {
       console.error('Error querying the database: ' + err.message);
-      return res.render('reader_articles', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Comment posted successfully.' : null });
+      return res.render('reader_articles', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }, success: req.query.success ? 'Comment posted successfully.' : null, req: req});
     });
 });
 
@@ -109,4 +97,31 @@ router.post('/article', urlencodedParser, [
   }
 ])
 
+router.get('/article/like', (req, res) => {
+  const notLiked = req.query.like == '0';
+
+  // First, get the current likes count
+  const getLikes = `SELECT likes FROM Articles WHERE id = ${req.query.id}`;
+  db.get(getLikes, (err, row) => {
+    if (err) {
+      console.error('Error getting likes:', err);
+      return res.status(500).send('Database error');
+    }
+    
+    const currentLikes = row.likes;
+    const updateLikes = notLiked ? Math.max(0, currentLikes - 1) : currentLikes + 1;
+    
+    // Update the likes count
+    const sql = `UPDATE Articles SET likes = ? WHERE id = ${req.query.id}`;
+    db.run(sql, [updateLikes], (err) => {
+      if (err) {
+        console.error('Error updating likes:', err);
+        return res.status(500).send('Database error');
+      }
+      
+      // Redirect back to the article page with the appropriate query parameter
+      res.redirect(`/reader/article?id=${req.query.id}${notLiked ? '#article' : '&like=1#article'}`);
+    });
+  });
+});
 module.exports = router;
