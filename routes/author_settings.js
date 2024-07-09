@@ -33,8 +33,18 @@ router.post('/settings', urlencodedParser, [
   (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      const alert = errors.array()
-      res.render('author_settings', { alert })
+      const alert = errors.array();
+      // Query the database again to get the current author details
+      db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
+        if (err) {
+          console.error('Error querying the database: ' + err.message);
+          // If there is an error, render the page with default values and the alert
+          return res.render('author_settings', { alert, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
+        } else {
+          // Render the page with the current author details and the alert
+          return res.render('author_settings', { alert, author: row });
+        }
+      });
     } else {
       const { author_name, blog_title } = req.body;
       const sql = `UPDATE Authors SET author_name = ?, blog_title = ? WHERE author_id = 1;`;

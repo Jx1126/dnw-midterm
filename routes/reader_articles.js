@@ -76,10 +76,7 @@ router.post('/article', urlencodedParser, [
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
         const alert = errors.array()
-        res.render('reader_articles', {
-            alert,
-            published: {}
-        })
+        return res.status(500).send('Internal server error')
     }else{
       const { commenter_name, comment } = req.body;
       const article_id = req.query.id;
@@ -87,7 +84,7 @@ router.post('/article', urlencodedParser, [
       db.run(sql, [article_id, commenter_name, comment], (err) => {
         if (err) {
           console.error('Error posting comment: ' + err.message);
-          return res.status(500).send('Error posting comment');
+          return res.redirect(`/reader/article?id=${article_id}#comments`, { alert, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
         }
       });
       return res.redirect(`/reader/article?id=${article_id}&success=1#comments`)
