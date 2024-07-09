@@ -66,7 +66,7 @@ router.get('/article', (req, res) => {
 });
 
 
-router.post('/article', urlencodedParser, [
+router.post('/article/comment', urlencodedParser, [
   [
     check('commenter_name', 'Name cannot be empty.').notEmpty(),
     check('commenter_name', 'Name must be between 3 to 40 characters.').isLength({min: 3, max: 40}),
@@ -77,23 +77,16 @@ router.post('/article', urlencodedParser, [
     const { commenter_name, comment } = req.body;
     if(!errors.isEmpty()) {
         const alert = errors.array()
-        res.render('reader_articles', {
-            alert,
-            published: {},
-            author: { author_name: 'Default Author', blog_title: 'Default Blog' },
-            req: req,
-            comments: []
-        })
+        return res.redirect(`/reader/article?id=${req.query.id}`)
     }else{
-      const article_id = req.query.id;
-      const sql = `INSERT INTO Comments (article_id, commenter, comment) VALUES (?, ?, ?)`;
-      db.run(sql, [article_id, commenter_name, comment], (err) => {
+      const sql = `INSERT INTO Comments (article_id, commenter, comment) VALUES (${req.query.id}, ?, ?)`;
+      db.run(sql, [commenter_name, comment], (err) => {
         if (err) {
           console.error('Error posting comment: ' + err.message);
           return res.status(500).send('Error posting comment');
         }
       });
-      return res.redirect(`/reader/article?id=${article_id}&success=1#comments`)
+      return res.redirect(`/reader/article?id=${req.query.id}&success=1#comments`)
     }
   }
 ])
