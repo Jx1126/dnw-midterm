@@ -40,8 +40,6 @@ router.get('/article', (req, res) => {
   });
 
   const getComments = new Promise((resolve, reject) => {
-    // const sql = `SELECT * FROM Comments WHERE article_id = '${req.query.id}';`;
-    // To sort by the creation date of the comments, the line above should be modified into:
     const sql = `SELECT * FROM Comments WHERE article_id = '${req.query.id}' ORDER BY creation DESC;`;
     db.all(sql, (err, rows) => {
       if (err) {
@@ -92,7 +90,7 @@ router.post('/article', urlencodedParser, [
           return res.status(500).send('Error posting comment');
         }
       });
-      return res.redirect(`/reader/article?id=${article_id}&success=1`)
+      return res.redirect(`/reader/article?id=${article_id}&success=1#comments`)
     }
   }
 ])

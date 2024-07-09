@@ -1,9 +1,7 @@
 // Set up express, bodyparser and EJS
 const express = require('express');
 const router = express();
-const { check, validationResult } = require('express-validator')
 var bodyParser = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
 router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
@@ -52,6 +50,12 @@ router.get('/home', (req, res) => {
       if (req.query.success) {
         obj.success = 'Settings saved successfully.'
       }
+      if(req.query.changes == 'saved') {
+        obj.changes = 'Draft updated successfully.'
+      }
+      if(req.query.deleted == 'true') {
+        obj.deleted = 'Article deleted successfully.'
+      }
       return res.render('author_home', obj);
     })
     .catch((err) => {
@@ -76,7 +80,7 @@ router.get('/delete', (req, res) => {
     if (err) {
       console.error('Error deleting the article: ' + err.message);
     }
-    return res.redirect('/author/home');
+    return res.redirect('/author/home?deleted=true');
   });
 });
 
