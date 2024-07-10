@@ -8,6 +8,8 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
 const { convertTimeFormat } = require('../public/script.js');
+const Filter = require('bad-words');
+const filter = new Filter();
 
 router.get('/article', (req, res) => {
   const getBlogInformation = new Promise((resolve, reject) => {
@@ -79,12 +81,14 @@ router.post('/article/comment', urlencodedParser, [
   (req, res) => {
     const errors = validationResult(req);
     const { commenter_name, comment } = req.body;
+    filtered_name = filter.clean(commenter_name);
+    filtered_comment = filter.clean(comment);
     if(!errors.isEmpty()) {
       const errorMessages = errors.array().map(error => error.msg);
       return res.redirect(`/reader/article?id=${req.query.id}&errors=${encodeURIComponent(errorMessages.join('||'))}#new_comment`);
     }else{
       const sql = `INSERT INTO Comments (article_id, commenter, comment) VALUES (${req.query.id}, ?, ?)`;
-      db.run(sql, [commenter_name, comment], (err) => {
+      db.run(sql, [filtered_name, filtered_comment], (err) => {
         if (err) {
           console.error('Error posting comment: ' + err.message);
           return res.status(500).send('Error posting comment');
