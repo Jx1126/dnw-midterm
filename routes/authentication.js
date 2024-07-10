@@ -16,7 +16,7 @@ router.use(express.static(__dirname + '/public')); // set location of static fil
 dotenv.config();
 
 router.get("/register", (req, res) => {
-  res.render("authentication", {author: { author_name: 'Default Author', blog_title: 'Default Blog' }, req: req});
+  res.render("authentication", {author: { author_name: 'Default Author', blog_title: 'Default Blog' }, req: req, login: false});
 });
 
 router.post("/register/auth", urlencodedParser, [
@@ -29,7 +29,7 @@ router.post("/register/auth", urlencodedParser, [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const alert = errors.array();
-      return res.render('authentication', { alert, req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
+      return res.render('authentication', { alert, req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: false }});
     } else {
       const { email, password } = req.body;
       const sql = `UPDATE Authors SET email = ? WHERE author_id = 1`;
@@ -58,7 +58,7 @@ router.post("/register/auth", urlencodedParser, [
 ]);
 
 router.get("/login", (req, res) => {
-  res.render("authentication", {author: { author_name: 'Default Author', blog_title: 'Default Blog' }, req: req});
+  res.render("authentication", {author: { author_name: 'Default Author', blog_title: 'Default Blog' }, req: req, login: true});
 });
 
 router.post("/login/auth", (req, res) => {
@@ -75,13 +75,13 @@ router.post("/login/auth", (req, res) => {
           req.session.loggedin = true;
           req.session.email = login_email;
           req.session.author_id = row.author_id;
-          return res.redirect("/author/home");
+          return res.redirect("/author/home?login=success");
         } else {
-          return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
+          return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: true}});
         }
       });
     } else {
-      return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
+      return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: true}});
     }
   });
 });

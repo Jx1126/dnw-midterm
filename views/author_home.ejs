@@ -11,67 +11,25 @@
     <!-- Header Navbar -->
     <%- include('../views/layout/header.ejs') %>
 
+    <% if (typeof login !== 'undefined') { %>
+      <%- include('../views/layout/toast.ejs', {message: {id: 'login_message', text: login}}) %>
+    <% } %>
 
-    <!-- Message to display when the user successfully updates their settings -->
-    <div class="flex justify-center items-center">
-      <% if(typeof success != 'undefined') { %>
-          <div id="settings_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
-            <strong class="font-bold">Success:</strong>
-            <span class="block sm:inline">
-              <%= success %>
-            </span>
-            <!-- Close icon that remove the success message on click -->
-            <button onclick="removeMessage('settings_message')" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </div>
-      <% } %>
-    </div>
-
-    <div class="flex justify-center items-center">
-      <% if(typeof changes != 'undefined') { %>
-          <div id="draft_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
-            <strong class="font-bold">Success:</strong>
-            <span class="block sm:inline">
-              <%= changes %>
-            </span>
-            <!-- Close icon that remove the success message on click -->
-            <button onclick="removeMessage('draft_message')" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </div>
-      <% } %>
-    </div>
-
-    <div class="flex justify-center items-center">
-      <% if(typeof deleted != 'undefined') { %>
-          <div id="delete_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
-            <strong class="font-bold">Success:</strong>
-            <span class="block sm:inline">
-              <%= deleted %>
-            </span>
-            <!-- Close icon that remove the success message on click -->
-            <button onclick="removeMessage('delete_message')" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </div>
-      <% } %>
-    </div>
+    <% if (typeof success !== 'undefined') { %>
+      <%- include('../views/layout/toast.ejs', {message: {id: 'settings_message', text: success}}) %>
+    <% } %>
     
-    <div class="flex justify-center items-center">
-      <% if(typeof publish != 'undefined') { %>
-          <div id="published_message" class="bg-green-100 skeleton border border-green-400 rounded-md text-green-700 px-4 py-3 max-w-xl fixed w-full z-[1]" role="alert">
-            <strong class="font-bold">Success:</strong>
-            <span class="block sm:inline">
-              <%= publish %>
-            </span>
-            <!-- Close icon that remove the success message on click -->
-            <button onclick="removeMessage('published_message')" class="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </div>
-      <% } %>
-    </div>
+    <% if (typeof changes !== 'undefined') { %>
+      <%- include('../views/layout/toast.ejs', {message: {id: 'draft_message', text: changes}}) %>
+    <% } %>
+    
+    <% if (typeof deleted !== 'undefined') { %>
+      <%- include('../views/layout/toast.ejs', {message: {id: 'delete_message', text: deleted}}) %>
+    <% } %>
+    
+    <% if (typeof publish !== 'undefined') { %>
+      <%- include('../views/layout/toast.ejs', {message: {id: 'published_message', text: publish}}) %>
+    <% } %>
 
     <!-- Settings button -->
     <div class="flex justify-end mr-10 mt-5">

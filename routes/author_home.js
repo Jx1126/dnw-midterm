@@ -60,6 +60,9 @@ router.get('/home', (req, res) => {
       if(req.query.publish == 'true') {
         obj.publish = 'Article published successfully.'
       }
+      if(req.query.login == 'success') {
+        obj.login = 'Login successful. Welcome!'
+      }
       return res.render('author_home', obj);
     })
     .catch((err) => {
