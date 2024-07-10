@@ -15,6 +15,16 @@ function publishConfirmation(id) {
   }
 }
 
+function copyLink(id) {
+  const articleLink = `${window.location.origin}/reader/article?id=${id}`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(articleLink).then(() => {
+      alert('Link copied to clipboard!');
+    })
+  }
+}
+
 function convertTimeFormat(time) {
   time = time.replace('T', ' ')
   const date = new Date(time);
