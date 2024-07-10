@@ -29,7 +29,7 @@ router.post("/register/auth", urlencodedParser, [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const alert = errors.array();
-      return res.render('authentication', { alert, req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: false }});
+      return res.render('authentication', { alert, req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog'}, login: false });
     } else {
       const { email, password } = req.body;
       const sql = `UPDATE Authors SET email = ? WHERE author_id = 1`;
@@ -77,11 +77,11 @@ router.post("/login/auth", (req, res) => {
           req.session.author_id = row.author_id;
           return res.redirect("/author/home?login=success");
         } else {
-          return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: true}});
+          return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog'}, login: true});
         }
       });
     } else {
-      return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog', login: true}});
+      return res.render("authentication", { alert: [{ msg: "Incorrect email or password." }], req: req, author: { author_name: 'Default Author', blog_title: 'Default Blog'}, login: true});
     }
   });
 });

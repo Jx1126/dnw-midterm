@@ -40,13 +40,13 @@
         <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg w-auto">
           <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
 
-          <% if (login) { %>
+          <% if (!login) { %>
             <form action="/register/auth" method="POST">
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Email?</span>
                 </div>
-                <input type="text" name="email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
+                <input type="email" name="email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
               </label>
       
               <label class="form-control w-full max-w-xs">
@@ -62,7 +62,7 @@
                 </div>
                 <input type="password" name="confirm_password" placeholder="Re-enter password" autocomplete="off" class="input input-bordered w-full max-w-xs" />
               </label>
-              <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+              <button type="submit" class="btn btn-primary btn-wide mt-5">Register</button>
             </form>
 
             <div class="flex justify-center align-center mt-3 text-slate-500 gap-1">
@@ -79,7 +79,7 @@
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Email?</span>
                 </div>
-                <input type="text" name="login_email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
+                <input type="email" name="login_email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
               </label>
       
               <label class="form-control w-full max-w-xs">
@@ -88,7 +88,7 @@
                 </div>
                 <input type="password" name="login_password" placeholder="Title" autocomplete="off" type="password" class="input input-bordered w-full max-w-xs" />
               </label>
-              <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+              <button type="submit" class="btn btn-primary btn-wide mt-5">Login</button>
             </form>
 
             <div class="flex justify-center align-center mt-3 text-slate-500 gap-1">
