@@ -1,16 +1,19 @@
-/**
-* index.js
-* This is your main app entry point
-*/
-
-// Set up express, bodyparser and EJS
 const express = require('express');
 const app = express();
 const port = 3000;
+const session = require('express-session');
+const bcrypt = require('bcrypt');
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs'); // set the app to use ejs for rendering
-app.use(express.static(__dirname + '/public')); // set location of static files
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
+
+app.use(session({
+    secret: 'dnwmidterm',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}));
 
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application
@@ -32,7 +35,16 @@ app.get('/', (req, res) => {
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const authorHome = require('./routes/author_home');
-app.use('/author', authorHome);
+app.use('/author', (req, res, next) => {
+  if (req.session.loggedin) {
+    next();
+  } else {
+    res.redirect('/register');
+  }
+}, authorHome);
+
+const authentication = require('./routes/authentication');
+app.use('/', authentication);
 
 const authorSettings = require('./routes/author_settings');
 app.use('/author', authorSettings);

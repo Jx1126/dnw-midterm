@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css" />
+    <title>BLOG-IT: Author Authentication</title>
+  </head>
+  <body>
+    <!-- Header Navbar -->
+    
+
+    <%- include('../views/layout/header.ejs') %>
+
+    <!-- Hero section -->
+    <section>
+      <h1><%= req.query.register === 'success' ? 'Author Login' : 'Author Registration' %></h1>
+    </section>
+    
+    <!-- Author login section -->
+    <section>
+      <!-- Display input error messages -->
+      <div class="flex flex-col items-center justify-center gap-2">
+        <!-- Loop through the error object to display the errors in the input -->
+        <% if(typeof alert != 'undefined') { %>
+          <% alert.forEach(function(error) { %>
+            <div class="bg-red-100 skeleton border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl w-full" role="alert">
+              <strong class="font-bold">Invalid Input:</strong>
+              <span class="block sm:inline">
+                <%= error.msg %>
+              </span>
+            </div>
+          <% }) %>
+        <% } %>
+      </div>
+      <div class="flex justify-center align-center">
+        <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg w-auto">
+          <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
+
+          <% if (req.query.register != 'success') { %>
+            <form action="/register/auth" method="POST">
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text text-slate-500 font-semibold">Email?</span>
+                </div>
+                <input type="text" name="email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
+              </label>
+      
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text text-slate-500 font-semibold">Password?</span>
+                </div>
+                <input type="password" name="password" placeholder="Password" autocomplete="off" class="input input-bordered w-full max-w-xs" />
+              </label>
+
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text text-slate-500 font-semibold">Confirm Password?</span>
+                </div>
+                <input type="password" name="confirm_password" placeholder="Re-enter password" autocomplete="off" class="input input-bordered w-full max-w-xs" />
+              </label>
+              <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+            </form>
+
+            <div class="flex justify-center align-center mt-3 text-slate-500 gap-1">
+              <p>
+                Already have an account?
+              </p>
+              <a href="/login?register=success" class="flex justify-center text-slate-600 font-semibold font-size text-md hover:underline">Login</a>
+            </div>
+
+          <% } else { %>
+
+            <form action="/login/auth" method="POST">
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text text-slate-500 font-semibold">Email?</span>
+                </div>
+                <input type="text" name="login_email" placeholder="Author ID" autocomplete="off" class="input input-bordered w-full max-w-xs"  />
+              </label>
+      
+              <label class="form-control w-full max-w-xs">
+                <div class="label">
+                  <span class="label-text name="login_password" text-slate-500 font-semibold">Password?</span>
+                </div>
+                <input type="password" name="login_password" placeholder="Title" autocomplete="off" type="password" class="input input-bordered w-full max-w-xs" />
+              </label>
+              <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
+            </form>
+          <% } %>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- Footer -->
+    <%- include('../views/layout/footer.ejs') %>
+  </body>
+</html>
