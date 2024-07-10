@@ -79,14 +79,6 @@ router.get('/publish', (req, res) => {
 });
 
 router.get('/delete', (req, res) => {
-  // const sql = `DELETE FROM Articles WHERE id = '${req.query.id}'`;
-  // db.run(sql, (err) => {
-  //   if (err) {
-  //     console.error('Error deleting the article: ' + err.message);
-  //   }
-  //   return res.redirect('/author/home?deleted=true');
-  // });
-
   const removeComments = `DELETE FROM Comments WHERE article_id = '${req.query.id}'`;
   db.run(removeComments, (err) => {
     if (err) {
