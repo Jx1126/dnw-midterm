@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS Authors (
   author_id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_name TEXT NOT NULL,
   blog_title TEXT NOT NULL,
-  email TEXT NOT NULL,
-  password TEXT NOT NULL
+  email TEXT NOT NULL
 );
 
 -- Table for articles
@@ -39,7 +38,7 @@ CREATE TABLE IF NOT EXISTS Comments (
 );
 
 -- Entering some placeholder data for demonstration purposes 
-INSERT INTO Authors (author_name, blog_title, email, password) VALUES ('Default Author', 'Default Title', ' ', ' ');
+INSERT INTO Authors (author_name, blog_title, email) VALUES ('Default Author', 'Default Title', ' ');
 
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) 
   VALUES ('Lorem Ipsum 1', 'Ut tellus velit, mattis sed massa vitae, auctor finibus lectus. Ut sollicitudin sem eget enim dignissim porta quis in sapien. Morbi ex justo, fringilla eu imperdiet ac, tincidunt sit amet turpis. In hac habitasse platea dictumst. In quis nibh libero. Praesent efficitur iaculis metus nec euismod. Suspendisse at elit quam.

@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const session = require('express-session');
-const bcrypt = require('bcrypt');
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
@@ -33,24 +32,25 @@ app.get('/', (req, res) => {
     res.render('homepage');
 });
 
-// Add all the route handlers in usersRoutes to the app under the path /users
-const authorHome = require('./routes/author_home');
-app.use('/author', (req, res, next) => {
-  if (req.session.loggedin) {
+const authenticationMiddleware = (req, res, next) => {
+  if(req.session.loggedin){
     next();
   } else {
     res.redirect('/register');
   }
-}, authorHome);
+};
 
 const authentication = require('./routes/authentication');
 app.use('/', authentication);
 
+const authorHome = require('./routes/author_home');
+app.use('/author', authenticationMiddleware, authorHome);
+
 const authorSettings = require('./routes/author_settings');
-app.use('/author', authorSettings);
+app.use('/author', authenticationMiddleware, authorSettings);
 
 const authorEdit = require('./routes/author_edit');
-app.use('/author', authorEdit);
+app.use('/author', authenticationMiddleware, authorEdit);
 
 const readerHome = require('./routes/reader_home');
 app.use('/reader', readerHome);
