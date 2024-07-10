@@ -7,6 +7,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
+const { convertTimeFormat } = require('../public/script.js');
 
 router.get('/article', (req, res) => {
   const getBlogInformation = new Promise((resolve, reject) => {
@@ -53,7 +54,7 @@ router.get('/article', (req, res) => {
 
   Promise.all([getBlogInformation, getPublishedArticle, getComments])
     .then(([getBlogInformation, getPublishedArticle, getComments]) => {
-      let obj = { author: getBlogInformation, published: getPublishedArticle, comments: getComments, req: req}
+      let obj = { author: getBlogInformation, published: getPublishedArticle, comments: getComments, req: req, convertTimeFormat}
       if (req.query.success) {
         obj.success = 'Comment posted successfully.'
       }

@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
+const { convertTimeFormat } = require('../public/script.js');
 
 router.get('/edit', (req, res) => {
   const getBlogInformation = new Promise((resolve, reject) => {
@@ -35,7 +36,7 @@ router.get('/edit', (req, res) => {
 
   Promise.all([getBlogInformation, getDraftArticle])
     .then(([getBlogInformation, getDraftArticle]) => {
-      let obj = { author: getBlogInformation, draft: getDraftArticle }
+      let obj = { author: getBlogInformation, draft: getDraftArticle, convertTimeFormat }
       return res.render('author_edit', obj);
     })
     .catch((err) => {

@@ -147,9 +147,9 @@
                   </p>
                 </div>
                 <!-- Modification information -->
-                <p class="text-slate-400"> Time created: <%= article.creation %></p>
-                <p class="text-slate-400"> Publication date: <%= article.publication %></p>
-                <p class="text-slate-400"> Last modified: <%= article.modified %></p>
+                <p class="text-slate-400"> Time created: <%= convertTimeFormat(article.creation) %></p>
+                <p class="text-slate-400"> Publication date: <%= convertTimeFormat(article.publication) %></p>
+                <p class="text-slate-400"> Last modified: <%= convertTimeFormat(article.modified) %></p>
               </div>
               <!-- Action section for the card -->
               <div class="card-actions mt-3 items-center justify-between">
@@ -196,9 +196,8 @@
               <!-- Container that stores the article information -->
               <div class="flex flex-col justify-start gap-x-4 mt-5">
                 <!-- Modification information -->
-                <p class="text-slate-400"> Time created: <%= article.creation %></p>
-                <!-- <p class="text-slate-400"> Publication date: <%# article.publication %></p> -->
-                <p class="text-slate-400"> Last modified: <%= article.modified %></p>
+                <p class="text-slate-400"> Time created: <%= convertTimeFormat(article.creation) %></p>
+                <p class="text-slate-400"> Last modified: <%= convertTimeFormat(article.modified) %></p>
               </div>
               <!-- Action section for the card -->
               <div class="card-actions mt-3 items-center justify-between">

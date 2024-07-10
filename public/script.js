@@ -14,3 +14,25 @@ function publishConfirmation(id) {
     window.location.href = `/author/publish?id=${id}`;
   }
 }
+
+function convertTimeFormat(time) {
+  time = time.replace('T', ' ')
+  const date = new Date(time);
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  }
+
+  let formattedTime = date.toLocaleDateString('en-US', options);
+  formattedTime = formattedTime.replace(',', '');
+  return formattedTime;
+}
+
+module.exports = {
+  convertTimeFormat
+}

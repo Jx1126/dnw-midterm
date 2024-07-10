@@ -5,6 +5,8 @@ var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
+const { convertTimeFormat } = require('../public/script.js');
+
 
 router.get('/home', (req, res) => {
 
@@ -47,7 +49,7 @@ router.get('/home', (req, res) => {
 
   Promise.all([getBlogInformation, getPublishedArticles])
     .then(([getBlogInformation, getPublishedArticles]) => {
-      let obj = { author: getBlogInformation, published: getPublishedArticles, sort: req.query.sort}
+      let obj = { author: getBlogInformation, published: getPublishedArticles, sort: req.query.sort, convertTimeFormat}
       if (req.query.success) {
         obj.success = 'Settings saved successfully.'
       }

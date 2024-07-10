@@ -126,7 +126,7 @@
               <!-- Publication date -->
               <p>
                 <% if (typeof(published) != 'undefined') { %>
-                  <%= published.publication %>
+                  <%= convertTimeFormat(published.publication) %>
                 <% } %>
               </p>
             </div>
@@ -209,7 +209,7 @@
               <p class="text-xl pt-4 font-semibold text-slate-500">
                 <%= comment.comment %>
               </p>
-              <p class="mt-5 text-slate-400 text-md font-semibold">Posted: <%= comment.creation %></p>
+              <p class="mt-5 text-slate-400 text-md font-semibold">Posted: <%= convertTimeFormat(comment.creation) %></p>
             </div>
           <% }) %>
         <% } else { %>
