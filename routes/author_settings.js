@@ -8,23 +8,32 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.set('view engine', 'ejs'); // set the router to use ejs for rendering
 router.use(express.static(__dirname + '/public')); // set location of static files
 
+// Route: /author/settings (GET)
+// Purpose: Renders the author settings page
+// Input: None
+// Output: Renders the author settings page from author_settings.ejs
 router.get('/settings', (req, res) => {
-  // Query the database row with id = 1 for the author's name and blog title
+  // Purpose: Retrieve the author's name and blog title from the database
+  // Input: None
+  // Output: Author's name and blog title for the header
   db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
     if (err) {
-      // If there is an error, render the page with default values
       console.error('Error querying the database: ' + err.message);
       return res.render('author_settings', { author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
     } else {
-      // Create object to pass in the author's name and blog title
       let obj = { author: row }
       return res.render('author_settings', obj);
     }
   });
 });
 
+// Route: /author/settings (POST)
+// Purpose: Update the author settings to the database
+// Input: Author name and blog title
+// Output: Redirects to author home page with success message, or renders the author settings page with alert
 router.post('/settings', urlencodedParser, [
   [
+    // Input validation for author name and blog title
     check('author_name', 'Author name cannot be empty.').notEmpty(),
     check('author_name', 'Author name must be between 3 to 50 characters.').isLength({ min: 3, max: 40 }),
     check('blog_title', 'Blog title cannot be empty.').notEmpty(),
@@ -34,19 +43,23 @@ router.post('/settings', urlencodedParser, [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const alert = errors.array();
-      // Query the database again to get the current author details
+      // Purpose: Get current author name and blog title from the database
+      // Reason: Revert the input value back to the last valid author name and blog title into the input field
+      // Input: None
+      // Output: Author's name and blog title for the header
       db.get('SELECT author_name, blog_title FROM Authors WHERE author_id = 1', (err, row) => {
         if (err) {
           console.error('Error querying the database: ' + err.message);
-          // If there is an error, render the page with default values and the alert
           return res.render('author_settings', { alert, author: { author_name: 'Default Author', blog_title: 'Default Blog' }});
         } else {
-          // Render the page with the current author details and the alert
           return res.render('author_settings', { alert, author: row });
         }
       });
     } else {
       const { author_name, blog_title } = req.body;
+      // Purpose: Update the author name and blog title to the database
+      // Input: Author name and blog title
+      // Output: Update the settings into the database and redirect to author home page
       const sql = `UPDATE Authors SET author_name = ?, blog_title = ? WHERE author_id = 1;`;
       db.get(sql, [author_name, blog_title], (err, data) => {
         if (err) {
