@@ -92,7 +92,6 @@ router.post("/login/auth", (req, res) => {
   // Input: None
   // Output: Author row from the database
   const sql = `SELECT * FROM Authors WHERE author_id = 1`;
-  // Database interaction: Get the author's email from the database
   db.get(sql, [], (err, row) => {
     if (err) {
       console.error("Error querying the database: " + err.message);
