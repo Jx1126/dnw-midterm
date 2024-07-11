@@ -37,6 +37,7 @@
         <!-- Loop through the error object to display the errors in the input -->
         <% if(typeof alert != 'undefined') { %>
           <% alert.forEach(function(error) { %>
+            <!-- Error message toast -->
             <div class="bg-red-100 skeleton border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl w-full" role="alert">
               <strong class="font-bold">Invalid Input:</strong>
               <span class="block sm:inline">

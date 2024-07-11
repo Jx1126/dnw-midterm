@@ -8,9 +8,10 @@
   </head>
   <body>
 
-    <!-- Header Navbar -->
+    <!-- Header -->
     <%- include('../views/layout/header.ejs') %>
 
+    <!-- Display respective message toast if certain function is performed successfully -->
     <% if (typeof login !== 'undefined') { %>
       <%- include('../views/layout/toast.ejs', {message: {id: 'login_message', text: login}}) %>
     <% } %>
@@ -49,17 +50,16 @@
       <h1>Author Homepage</h1>
       <h1 class="font-medium text-xl mt-5">Express your creativy<br>and share them with the world!</p>
         <form action="/author/edit" method="GET">
-          <!-- Container to center new draft button -->
+
+          <!-- New draft button -->
           <div class="flex justify-center mt-16">
-            <!-- New draft button -->
             <button href="#" class="btn btn-primary text-slate-800 text-lg h-16 w-56 md:w-80">Create New Draft</button>
           </div>
         </form>
-        <!-- Container to store published articles and draft articles button -->
+
+        <!-- Navigations button -->
         <div class="flex flex-col items-center justify-center gap-2 mt-5 sm:flex-row">
-          <!-- Links to the published articles section of the page -->
           <a href="#published_articles" class="btn btn-secondary text-slate-200 text-lg h-16 w-56">Published Articles</a>
-          <!-- Links to the draft articles section of the page -->
           <a href="#draft_articles" class="btn btn-secondary text-slate-200 text-lg h-16 w-56">Draft Articles</a>
         </div>
     </section>
@@ -67,51 +67,49 @@
     <!-- Published articles section -->
     <section id="published_articles">
       <h1>Published Articles</h1>
-      <!-- Grid container that stores all the article cards -->
+      <!-- Grid container for article cards -->
       <div class="grid grid-cols-1 mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <!-- Loop through the published articles to display information in the card -->
         <% published.forEach((article) => { %>
-          <!-- Article cards container -->
+          <!-- Article card -->
           <div class="card w-full h-auto shadow-xl bg-slate-100 ">
-            <!-- Body container for information in the card -->
             <div class="card-body">
-              <!-- Article title -->
               <h2 class="card-title text-slate-700"><%= article.title %></h2>
-              <!-- Article description -->
               <p class="text-slate-600 line-clamp-3"><%- article.content %></p>
-              <!-- Container that stores the article information -->
+              
+              <!-- Article information -->
               <div class="flex flex-col justify-start gap-x-4 mt-5">
-                <!-- Container to store the view icon and the views amount in a row -->
                 <div class="flex items-center text-slate-400 gap-2">
-                  <!-- View icon -->
+                  <!-- Views -->
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                   </svg>
-                  <!-- Views amount -->
                   <p>
                     <%= article.reads %>
                   </p>
                 </div>
-                <!-- Container to store the like icon and the likes amount in a row -->
+
+                <!-- Likes -->
                 <div class="flex items-center text-slate-400 gap-2">
                   <!-- Like icon -->
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                   </svg>  
-                  <!-- Likes amount -->
                   <p>
                     <%= article.likes %>
                   </p>
                 </div>
-                <!-- Modification information -->
+
+                <!-- Timestamp information -->
                 <p class="text-slate-400"> Time created: <%= convertTimeFormat(article.creation) %></p>
                 <p class="text-slate-400"> Publication date: <%= convertTimeFormat(article.publication) %></p>
                 <p class="text-slate-400"> Last modified: <%= convertTimeFormat(article.modified) %></p>
               </div>
-              <!-- Action section for the card -->
+
+              <!-- Article card actions -->
               <div class="card-actions mt-3 items-center justify-between">
-                <!-- Links to the article -->
+                <!-- Read button -->
                 <a href="/reader/article?id=<%= typeof(article) != 'undefined' ? article.id : 'new'%>" class="flex-grow">
                   <button type="submit" class="btn btn-primary w-full">START READING!</button>
                 </a>
@@ -139,27 +137,25 @@
     <!-- Draft articles section -->
     <section id="draft_articles">
       <h1>Draft Articles</h1>
-      <!-- Grid container that stores all the article cards -->
+      <!-- Grid container for draft article cards -->
       <div class="grid grid-cols-1 mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3">
         <!-- Loop through the draft articles to display information in the card -->
         <% draft.forEach((article) => { %>
-          <!-- Article cards container -->
+          <!-- Draft article card --> 
           <div class="card w-full h-auto shadow-xl bg-slate-100">
-            <!-- Body container for information in the card -->
             <div class="card-body">
-              <!-- Article title -->
               <h2 class="card-title text-slate-700"><%= article.title %></h2>
-              <!-- Article description -->
               <p class="text-slate-600 line-clamp-3"><%- article.content %></p>
-              <!-- Container that stores the article information -->
+
+              <!-- Article information -->
               <div class="flex flex-col justify-start gap-x-4 mt-5">
-                <!-- Modification information -->
                 <p class="text-slate-400"> Time created: <%= convertTimeFormat(article.creation) %></p>
                 <p class="text-slate-400"> Last modified: <%= convertTimeFormat(article.modified) %></p>
               </div>
-              <!-- Action section for the card -->
+
+              <!-- Article card actions -->
               <div class="card-actions mt-3 items-center justify-between">
-                <!-- Publish article button -->
+                <!-- Publish button -->
                 <div class="flex-grow">
                   <a onclick="publishConfirmation('<%= article.id %>')" class="btn btn-primary w-full" class="btn btn-primary w-full">PUBLISH</a>
                 </div>
@@ -185,7 +181,7 @@
     <!-- Footer -->
     <%- include('../views/layout/footer.ejs') %>
 
-    <!-- New draft button with a fixed positioning -->
+    <!-- New draft button -->
     <form action="/author/edit?id=new" method="GET">
       <button class="btn btn-success skeleton text-green-950 w-40 h-24 fixed bottom-4 right-4">
         <!-- New draft icon -->

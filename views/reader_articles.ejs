@@ -7,7 +7,7 @@
     <title>BLOG-IT: Articles</title>
   </head>
   <body>
-    <!-- Header Navbar -->
+    <!-- Header -->
     <%- include('../views/layout/header.ejs') %>
 
     <!-- Display success message if comment is posted successfully -->
@@ -15,7 +15,7 @@
       <%- include('../views/layout/toast.ejs', {message: {id: 'comment_success_message', text: success}}) %>
     <% } %>
 
-    <!-- Links to reader homepage -->
+    <!-- Return to reader homepage button -->
     <div class="flex ml-10 mt-5 ">
       <form action="/reader/home" method="GET">
         <button href="#" class="btn btn-secondary w-40">
@@ -31,24 +31,21 @@
     <!-- Hero section -->
     <section class="mb-0 flex flex-col items-center">
       <h1>Article Reader</h1>
+      <!-- Navigation buttons -->
       <div class="flex flex-col gap-3 mt-10 sm:flex-row justify-center">
-        <!-- Links to article -->
         <a href="#article" class="btn btn-primary text-slate-200 text-lg h-16 w-72">Jump to Article</a>
       </div>
-      <!-- Links to article description and comments -->
       <div class="flex flex-col gap-3 mt-3 sm:flex-row justify-center">
         <a href="#comments" class="btn btn-secondary text-slate-200 text-lg h-16 w-72">Jump to Comments</a>
         <a href="#article_details" class="btn btn-secondary text-slate-200 text-lg h-16 w-72">Jump to Article Details</a>
       </div>
     </section>
 
-    <!-- Container to store the article and article details -->
+    <!-- Article container -->
     <div class="flex flex-col sm:flex-row justify-center">
       <!-- Article section -->
       <section id="article" class="mx-5 mb-0 max-w-7xl">
-        <!-- Container for the article -->
         <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg">
-          <!-- Container for the article title and content -->
           <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
             <!-- Article title -->
             <h1>
@@ -63,6 +60,9 @@
                 <%- published.content %>
               <% } %>
             </p>
+
+            <!-- Like and unlike button depending on the query parameter -->
+            <!-- Like button -->
             <% if (typeof published != 'undefined') { %>
               <% if (req.query.like == '1') { %>
                 <a href="/reader/article/like?id=<%= published.id %>&like=0" class="btn skeleton bg-red-300 text-red-900 border-red-300 hover:bg-red-300 hover:border-red-300 hover:shadow btn-wide border-2 mt-5">
@@ -72,6 +72,7 @@
                   You've liked this article
                 </a>
               <% } else { %>
+                <!-- Unlike button -->
                 <a href="/reader/article/like?id=<%= published.id %>" class="btn skeleton btn-outline btn-wide border-red-400 text-red-700 border-2 mt-5 hover:bg-red-300 hover:text-red-900 hover:border-red-300 hover:shadow">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -86,25 +87,20 @@
 
       <!-- Article detail section -->
       <section id="article_details" class="mx-5 mt-0 mb-3 sm:mr-5 sm:mt-16 sm:mb-16">
-        <!-- Container for the article details -->
         <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg">
-          <!-- Container for the article details title and content -->
           <div class="flex flex-col p-5 pl-7 min-w-60 bg-slate-200 rounded-lg shadow-lg">
             <h1 class="text-3xl text-start">Article Details</h1>
-            <!-- Author section -->
+
+            <!-- Author information -->
             <p class="mt-2 font-medium text-xl text-slate-400">Author</p>
-            <!-- Container to store the author icon and name in a row -->
             <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
-              <!-- Author icon -->
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
               </svg>            
-              <!-- Author name   -->
-              <p>
-                <%= author.author_name %>
-              </p>
+              <p><%= author.author_name %></p>
             </div>
-            <!-- Publication date section -->
+
+            <!-- Publication -->
             <p class="mt-2 font-medium text-xl text-slate-400">Publication Date</p>
             <!-- Container to store the calender icon and publication date in a row -->
             <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
@@ -112,38 +108,33 @@
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                 <path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z" clip-rule="evenodd" />
               </svg>                       
-              <!-- Publication date -->
               <p>
                 <% if (typeof(published) != 'undefined') { %>
                   <%= convertTimeFormat(published.publication) %>
                 <% } %>
               </p>
             </div>
-            <!-- Views section -->
+
+            <!-- Views -->
             <p class="mt-2 font-semibold text-xl text-slate-400">Views</p>
-            <!-- Container to store the view icon and the views amount in a row -->
             <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
-              <!-- View icon -->
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
               </svg>     
-              <!-- Views amount -->
               <p>
                 <% if (typeof(published) != 'undefined') { %>
                   <%= published.reads + 1 %>
                 <% } %>
               </p>
             </div>
-            <!-- Likes section -->
+
+            <!-- Likes -->
             <p class="mt-2 font-semibold text-xl text-slate-400">Likes</p>
-            <!-- Container to store the like icon and the likes amount in a row -->
             <div class="flex items-center text-slate-500 font-medium text-lg gap-2">
-              <!-- Like icon -->
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
               </svg>  
-              <!-- Likes amount -->
               <p>
                 <% if (typeof(published) != 'undefined') { %>
                   <%= published.likes %>
@@ -155,45 +146,41 @@
       </section>
     </div>
 
-    <!-- Comment section -->
+    <!-- Comments section -->
     <section id="comments" class="flex justify-center mt-0 sm:mt-5 xl:mx-80 lg:mx-48 sm:mx-20">
-      <!-- Container for the whole comment section -->
       <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg max-w-7xl min-w-full">
-        <!-- Container for the comment section title -->
         <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
-          <h1 class="text-2xl text-start">
-            Comments
-          </h1>
-          <!-- Dropdown for sorting the comments -->
+          <h1 class="text-2xl text-start">Comments</h1>
+
+          <!-- Dropdown for sorting comments -->
           <details id="dropdown" class="dropdown">
+            <!-- Dropdown content -->
             <summary id="sort_button" class="btn btn-outline bg-transparent mt-5 ml-0 hover:bg-transparent hover:tracking-wide hover:text-slate-500 hover:border-slate-500">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
               </svg>
               Sort: Publication Date      
             </summary>
-            <!-- Dropdown content for sorting the comments -->
             <ul class="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
               <li><a href="/reader/article?id=<%= published.id %>#comments">Publication Date</a></li>
             </ul>
           </details>
         </div>
         
+        <!-- Existing comments -->
         <% if (comments && comments.length > 0) { %>
           <% comments.forEach(comment => { %>
-            <!-- Container for the each comment -->
             <div class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
-              <!-- Author section -->
+              <!-- Commenter -->
               <div class="flex items-center text-slate-500 font-medium text-lg gap-2 border-b-2 border-slate-300">
-                <!-- Author icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                 </svg>            
-                <!-- Author name   -->
                 <p>
                   <%= comment.commenter %>
                 </p>
               </div>
+              
               <!-- Comment -->
               <p class="text-xl pt-4 font-semibold text-slate-500">
                 <%= comment.comment %>
@@ -202,16 +189,17 @@
             </div>
           <% }) %>
         <% } else { %>
+          <!-- If no comment exists -->
           <div class="p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
             <p class="text-slate-500 font-semibold">Be the first one to comment?</p>
           </div>
         <% } %>
 
-        <!-- New comment input -->
+        <!-- New comment form -->
         <div id="new_comment" class="flex flex-col p-5 pl-7 my-3 bg-slate-200 rounded-lg shadow-lg">
           <form action="/reader/article/comment?id=<%= req.query.id %>" method="POST">
             <div class="flex flex-col gap-3">
-              <!-- Display input error messages -->
+              <!-- Loop through the error object to display the errors in the input -->
               <% if(typeof(alert) != 'undefined') { %>
                 <% alert.forEach(function(error) { %>
                   <div class="bg-red-100 border skeleton border-red-400 text-red-700 px-4 py-3 rounded relative max-w-xl w-full" role="alert">
@@ -223,21 +211,24 @@
                 <% }) %>
               <% } %>
             </div>
-            <!-- Input for commenter name -->
+
+            <!-- Commenter name input -->
             <label class="form-control w-full max-w-xs">
               <div class="label">
                 <span class="label-text text-slate-500 font-semibold text-md">Commenter's name</span>
               </div>
               <input name="commenter_name" type="text" placeholder="Name" autocomplete="off" name="commenter" class="input input-bordered w-full max-w-xs " />
             </label>
-            <!-- Input for the comment -->
+
+            <!-- Comment input -->
             <label class="form-control">
               <div class="label">
                 <span class="label-text text-slate-500 font-semibold text-md">Comment</span>
               </div>
               <textarea class="textarea textarea-bordered h-24 resize" autocomplete="off" name="comment" placeholder="Enter your message.."></textarea>
             </label>
-            <!-- Submit comment button -->
+
+            <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
           </form>
         </div>

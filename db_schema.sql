@@ -1,10 +1,8 @@
--- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
 PRAGMA foreign_keys=ON;
 
 BEGIN TRANSACTION;
 
--- Create your tables with SQL commands here (watch out for slight syntactical differences with SQLite vs MySQL)
--- Table for authors to set up the blog
+-- Create Authors table
 CREATE TABLE IF NOT EXISTS Authors (
   author_id INTEGER PRIMARY KEY AUTOINCREMENT,
   author_name TEXT NOT NULL,
@@ -12,7 +10,7 @@ CREATE TABLE IF NOT EXISTS Authors (
   email TEXT NOT NULL
 );
 
--- Table for articles
+-- Create Articles table
 CREATE TABLE IF NOT EXISTS Articles (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   title TEXT NOT NULL,
@@ -27,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Articles (
   FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- Table for comments
+-- Create Comments table
 CREATE TABLE IF NOT EXISTS Comments (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   article_id INTEGER,
@@ -37,9 +35,13 @@ CREATE TABLE IF NOT EXISTS Comments (
   FOREIGN KEY (article_id) REFERENCES Articles(id)
 );
 
--- Entering some placeholder data for demonstration purposes 
+-- Insert placeholder data
+
+-- Insert default author and blog title
 INSERT INTO Authors (author_name, blog_title, email) VALUES ('Default Author', 'Default Title', ' ');
 
+-- Insert placeholder articles
+-- Draft article 1
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type) 
   VALUES ('Lorem Ipsum 1', 'Ut tellus velit, mattis sed massa vitae, auctor finibus lectus. Ut sollicitudin sem eget enim dignissim porta quis in sapien. Morbi ex justo, fringilla eu imperdiet ac, tincidunt sit amet turpis. In hac habitasse platea dictumst. In quis nibh libero. Praesent efficitur iaculis metus nec euismod. Suspendisse at elit quam.
            
@@ -48,6 +50,7 @@ INSERT INTO Articles (title, content, reads, likes, author_id, creation, modifie
            Maecenas commodo erat quis tortor sodales pulvinar. Nunc id porta orci. Nunc quis nulla eget nisl consectetur tincidunt quis ac erat. Fusce lobortis sodales maximus. Praesent sagittis gravida vehicula. In blandit ex quis varius bibendum. Maecenas imperdiet rhoncus felis, nec varius mauris pharetra sit amet. Etiam ante nisi, fermentum vitae dignissim ac, pretium a elit. Nunc leo magna, laoreet in lacus in, pulvinar aliquam odio. Aliquam quis libero arcu.', 
            0, 0, 1, '2024-01-10', '2024-02-13', '2024-02 15', 'draft');
 
+-- Draft article 2
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type)
   VALUES ('Lorem Ipsum 2', 'Sed elementum tincidunt nulla, ut elementum augue ultrices ac. Mauris ultricies mauris in odio tempus vehicula. Praesent nec aliquet purus. Pellentesque lacus ipsum, ultrices tincidunt dui vel, luctus finibus lorem. Phasellus lacinia vulputate nibh id consectetur. Curabitur nisl felis, condimentum sit amet malesuada at, pretium ac est. Vivamus eleifend metus ut tortor hendrerit, sed suscipit velit placerat. Mauris bibendum sapien eu felis scelerisque eleifend. Phasellus pellentesque nec lacus scelerisque scelerisque.
            
@@ -56,6 +59,7 @@ INSERT INTO Articles (title, content, reads, likes, author_id, creation, modifie
            Maecenas quis porttitor leo. Aenean tempus leo condimentum metus consequat dapibus. Praesent eget quam non augue auctor facilisis in nec metus. Phasellus eget ex congue, sagittis erat a, facilisis est. Fusce feugiat justo vitae arcu ultrices tristique. Suspendisse sed metus interdum, tempor mi eu, ultricies orci. Pellentesque ut nibh eget velit accumsan blandit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas ut fringilla elit, ac vestibulum purus. Nulla non rhoncus dolor.', 
            0, 0, 1, '2024-02-11', '2024-02-14', '2024-02-16', 'draft');
 
+-- Published article 1
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type)
   VALUES ('Lorem Ipsum 3', 'Cras vel risus commodo, blandit felis vitae, hendrerit sapien. Pellentesque sit amet scelerisque urna, vel porttitor purus. Nam gravida eleifend urna, sed iaculis nunc aliquet vel. Praesent scelerisque lobortis commodo. Suspendisse in sapien nibh. Pellentesque lorem lorem, efficitur non varius sed, finibus eu eros. Vestibulum commodo lorem eu est semper gravida.
            
@@ -64,6 +68,7 @@ INSERT INTO Articles (title, content, reads, likes, author_id, creation, modifie
            Duis placerat finibus ipsum. Ut pulvinar posuere arcu eget commodo. Praesent consequat porta ullamcorper. Praesent id est facilisis, porttitor massa a, interdum turpis. Nulla mattis iaculis eros non tincidunt. Fusce vestibulum dui vitae suscipit ornare. Praesent vel pretium mi. Nulla facilisi. Vestibulum et volutpat magna, quis pharetra leo. Aliquam et est et tortor viverra imperdiet. Fusce varius dolor dolor. Vivamus maximus tristique augue a lobortis. Etiam eu neque mollis, lacinia erat eget, cursus justo. Curabitur maximus nulla non dolor tristique, id ullamcorper nulla volutpat. Nam hendrerit malesuada arcu vel tristique. Donec a egestas massa.', 
            100, 30, 1, '2024-03-12', '2024-02-15', '2024-02-17', 'published');
 
+-- Published article 2
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type)
   VALUES ('Lorem Ipsum 4', 'Vivamus rhoncus augue ex, non bibendum velit rutrum vel. Phasellus sit amet ligula eget purus blandit tempor. Vestibulum vel sollicitudin nisi, nec porta nisi. Cras eget feugiat tellus, et posuere justo. Nullam dignissim lobortis iaculis. Phasellus imperdiet, leo in volutpat dignissim, justo nisl sodales dolor, at interdum justo lacus in lorem. Sed a ligula auctor, lacinia leo vitae, pharetra felis. Praesent varius lorem non tellus pharetra, quis malesuada ex gravida. Sed et ante consequat dolor consequat tincidunt.
            
@@ -72,6 +77,7 @@ INSERT INTO Articles (title, content, reads, likes, author_id, creation, modifie
            Suspendisse posuere molestie ipsum a condimentum. In sed urna ante. Aliquam in nunc dignissim, venenatis massa eget, feugiat mi. Aenean tempor congue quam, nec pellentesque leo. Suspendisse dui augue, porttitor eu nulla sed, rutrum pharetra dui. Donec eros urna, sollicitudin at augue blandit, porta tempus nulla. Ut nunc elit, feugiat et arcu tristique, semper elementum risus. Proin est ex, sagittis ac nulla pellentesque, maximus semper neque. Proin rhoncus leo non mattis tempor. Phasellus luctus sapien nec ultrices rutrum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque rhoncus, libero vitae ullamcorper dignissim, nulla ante scelerisque nibh, et aliquet lectus nibh sit amet justo. Proin eu justo et erat posuere varius.', 
            50, 20, 1,  '2024-04-14',  '2024-02-17', '2024-02-19', 'published');
 
+-- Published article 3
 INSERT INTO Articles (title, content, reads, likes, author_id, creation, modified, publication, type)
   VALUES ('Lorem Ipsum 5', 'Vestibulum iaculis vestibulum nunc, sit amet hendrerit ex tristique ac. Quisque eget faucibus orci, id ullamcorper mi. Quisque sit amet iaculis enim. Aliquam erat volutpat. Sed elementum iaculis nulla bibendum vehicula. Donec congue lectus nec auctor consequat. Suspendisse ut convallis leo, et ornare tortor. Curabitur ornare, lectus et lobortis volutpat, massa erat luctus ipsum, ac posuere risus neque eget nulla. Nullam accumsan, lectus sit amet ornare rhoncus, leo libero tincidunt felis, sit amet tincidunt lorem dui nec mi. Morbi lectus lorem, ultricies sit amet erat in, sollicitudin viverra enim. Integer vitae sagittis odio, eu fermentum dui. Integer vitae tortor magna. Cras quis urna molestie, ultrices odio sit amet, facilisis ligula. Mauris quis semper felis, ut posuere nisi.
            
