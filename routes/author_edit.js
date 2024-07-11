@@ -14,7 +14,7 @@ const { convertTimeFormat } = require('../public/script.js');
 router.get('/edit', (req, res) => {
   // Purpose: Retrieve the author's name and blog title from the database
   // Input: None
-  // Output: Author's name and blog title
+  // Output: Author's name and blog title for the header
   const getBlogInformation = new Promise((resolve, reject) => {
     const sql = `SELECT author_name, blog_title FROM Authors WHERE author_id = 1`;
     db.get(sql, (err, row) => {
