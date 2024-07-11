@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Override the some default CSS class for TailwindCSS and DaisyUI  */
 html {
   @apply scroll-smooth
 }
