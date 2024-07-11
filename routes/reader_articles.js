@@ -1,15 +1,17 @@
-// Set up express, bodyparser and EJS
+// Requiring the necessary modules
 const express = require('express');
 const router = express();
 const { check, validationResult } = require('express-validator')
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-router.use(bodyParser.urlencoded({ extended: true }));
-router.set('view engine', 'ejs'); // set the router to use ejs for rendering
-router.use(express.static(__dirname + '/public')); // set location of static files
 const { convertTimeFormat } = require('../public/script.js');
 const Filter = require('bad-words');
 const filter = new Filter();
+
+// Middleware setup
+router.use(bodyParser.urlencoded({ extended: true }));
+router.set('view engine', 'ejs');
+router.use(express.static(__dirname + '/public'));
 
 // Route: /reader/articles (GET)
 // Purpose: Renders the article page

@@ -1,11 +1,13 @@
-// Set up express, bodyparser and EJS
+// Requiring the necessary modules
 const express = require('express');
 const router = express();
-var bodyParser = require("body-parser");
-router.use(bodyParser.urlencoded({ extended: true }));
-router.set('view engine', 'ejs'); // set the router to use ejs for rendering
-router.use(express.static(__dirname + '/public')); // set location of static files
+const bodyParser = require("body-parser");
 const { convertTimeFormat } = require('../public/script.js');
+
+// Middleware setup
+router.use(bodyParser.urlencoded({ extended: true }));
+router.set('view engine', 'ejs');
+router.use(express.static(__dirname + '/public'));
 
 // Route: /reader/home (GET)
 // Purpose: Renders the reader home page
