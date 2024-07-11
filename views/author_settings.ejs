@@ -7,10 +7,11 @@
     <title>BLOG-IT: Author Settings</title>
   </head>
   <body>
-    <!-- Header Navbar -->
+
+    <!-- Header -->
     <%- include('../views/layout/header.ejs') %>
 
-    <!-- Links to author homepage -->
+    <!-- Return to homepage button -->
     <div class="flex ml-10 mt-5 ">
       <form action="/author/home" method="GET">
         <button href="#" class="btn btn-secondary w-40">
@@ -29,9 +30,9 @@
     </section>
     
     
-    <!-- Author Settings Form -->
+    <!-- Author settings section -->
     <section>
-      <!-- Display input error messages -->
+      <!-- Error message display -->
       <div class="flex flex-col items-center justify-center gap-2">
         <!-- Loop through the error object to display the errors in the input -->
         <% if(typeof alert != 'undefined') { %>
@@ -45,10 +46,14 @@
           <% }) %>
         <% } %>
       </div>
+
+      <!-- Settings form container -->
       <div class="flex justify-center align-center">
         <div class="mt-7 gap-5 p-5 overflow-hidden bg-slate-400 shadow-xl rounded-lg w-auto">
           <div class="flex flex-col p-5 pl-7 bg-slate-200 rounded-lg shadow-lg">
+            <!-- Author settings form -->
             <form action="/author/settings" method="POST">
+              <!-- Author name input -->
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Author name?</span>
@@ -56,12 +61,15 @@
                 <input type="text" placeholder="Name" autocomplete="off" class="input input-bordered w-full max-w-xs" name="author_name" id="author_name" value="<%= typeof(author) != 'undefined' ? author.author_name : '' %>" />
               </label>
       
+              <!-- Blog title input -->
               <label class="form-control w-full max-w-xs">
                 <div class="label">
                   <span class="label-text text-slate-500 font-semibold">Blog title?</span>
                 </div>
                 <input type="text" placeholder="Title" autocomplete="off" class="input input-bordered w-full max-w-xs" name="blog_title" id="blog_title" value="<%= typeof(author) != 'undefined' ? author.blog_title : '' %>" />
               </label>
+
+              <!-- Submit button -->
               <button type="submit" class="btn btn-primary btn-wide mt-5">Submit</button>
             </form>
           </div>
