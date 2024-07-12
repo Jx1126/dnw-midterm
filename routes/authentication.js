@@ -61,7 +61,7 @@ router.post("/register/auth", urlencodedParser, [
         let modifyEnv = readEnv.replace(/AUTHOR_PASSWORD=.*$/m, `AUTHOR_PASSWORD=${hash}`);
         fs.writeFileSync(pathToEnv, modifyEnv);
 
-        dotenv.config();
+        dotenv.config({ override: true });
 
         // Database interaction: Update the author's email in the database
         db.run(sql, [email], (err) => {
